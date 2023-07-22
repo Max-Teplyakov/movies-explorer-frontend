@@ -1,0 +1,34 @@
+.footer {
+  padding: 0 70px;
+}
+
+.footer__title {
+  margin: 0;
+  padding-bottom: 20px;
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-bottom: 1px solid #424242;
+}
+
+.footer__block {
+  display: flex;
+  padding: 20px 0;
+  justify-content: space-between;
+}
+
+.footer__links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer__year {
+  margin: 0;
+}
+
+.footer__company {
+  margin: 0;
+}

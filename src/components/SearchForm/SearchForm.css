@@ -1,0 +1,24 @@
+.search-form {
+  padding: 80px 70px 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-form__input {
+  padding-left: 10px;
+  width: 1086px;
+  height: 50px;
+  border-radius: 8px;
+  background: #2f2f2f;
+  border: none;
+}
+
+.search-form__btn {
+  width: 44px;
+  height: 44px;
+  background-image: url("../../images/search.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
