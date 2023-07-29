@@ -1,0 +1,55 @@
+.movie-card {
+  width: 270px;
+  height: 218px;
+  display: flex;
+}
+
+.movie-card__block {
+}
+
+.movie-card__container {
+  height: 67px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.movie-card__img {
+  width: 270px;
+  height: 151px;
+}
+
+.movie-card__text {
+  padding: 14px 0 10px 12px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.movie-card__time {
+  padding: 0 0 14px 12px;
+  color: #8b8b8b;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.movie-card__like {
+  margin: auto 0;
+  width: 16px;
+  height: 16px;
+  background-image: url("../../images/save.svg");
+  border: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #212121;
+}
+
+.movie-card__like_active {
+  background-image: url("../../images/saveDisable.svg");
+}
+
+.movie-card__delete {
+  background-image: url("../../images/deleteMovie.svg");
+}

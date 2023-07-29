@@ -1,0 +1,21 @@
+.movies-card-list {
+  margin: 0 auto;
+  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 1140px;
+}
+
+.button-next {
+  margin: 0 auto 159px;
+  width: 320px;
+  height: 36px;
+  border: 2px solid #424242;
+
+  background-color: #212121;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}

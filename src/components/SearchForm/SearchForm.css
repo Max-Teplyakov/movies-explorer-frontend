@@ -1,9 +1,12 @@
 .search-form {
-  padding: 80px 70px 28px;
+  margin: 0 auto;
+  padding: 80px 0 13px;
+  max-width: 1140px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid #424242;
 }
 
 .search-form__input {
@@ -11,14 +14,15 @@
   width: 1086px;
   height: 50px;
   border-radius: 8px;
-  background: #2f2f2f;
+  background: #212121;
+
   border: none;
 }
 
 .search-form__btn {
-  width: 44px;
-  height: 44px;
-  background-image: url("../../images/search.svg");
+  width: 34px;
+  height: 34px;
+  background-image: url("../../images/search.png");
   background-repeat: no-repeat;
   background-size: contain;
 }
