@@ -23,7 +23,7 @@ function aboutProject() {
         </div>
       </div>
 
-      <div className="about-project__container">
+      <div className="about-project__container-skill">
         <div className="about-project__block">
           <p className="about-project__date about-project__date_green">
             1 неделя
