@@ -5,7 +5,7 @@
 
 .register__logo {
   padding-top: 70px;
-  padding-bottom: 40px;
+  padding-bottom: 38px;
 }
 
 .register__form__title {
@@ -24,7 +24,6 @@
 .register__span {
   display: flex;
   color: #8b8b8b;
-  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
@@ -32,15 +31,18 @@
 }
 
 .register__input {
-  padding-bottom: 10px;
-  margin-bottom: 24px;
-  width: 396px;
-  font-size: 14px;
+  padding: 14px;
+  margin-bottom: 20px;
+  margin-top: 8px;
+  width: 366px;
+  height: 16px;
+  font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  background-color: #202020;
-  border-right: none;
+  border-radius: 8px;
+  background: #2f2f2f;
+  border: none;
   color: #fff;
 }
 

@@ -18,6 +18,10 @@
   display: flex;
   padding: 20px 0;
   justify-content: space-between;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .footer__links {
@@ -31,4 +35,40 @@
 
 .footer__company {
   margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 0px 30px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .footer {
+    padding: 129px 9px 0;
+  }
+
+  .footer__title {
+    padding-bottom: 22px;
+    font-size: 12px;
+  }
+  .footer__block {
+    flex-direction: column-reverse;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .footer__links {
+    display: block;
+  }
+
+  .footer__company {
+    margin-top: 10px;
+    margin-bottom: 12px;
+  }
+
+  .footer__year {
+    margin-top: 18px;
+    color: #8b8b8b;
+  }
 }

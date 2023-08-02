@@ -5,7 +5,7 @@
 
 .login__logo {
   padding-top: 70px;
-  padding-bottom: 40px;
+  padding-bottom: 38px;
 }
 
 .login__form__title {
@@ -32,20 +32,23 @@
 }
 
 .login__input {
-  padding-bottom: 10px;
-  margin-bottom: 24px;
-  width: 396px;
+  padding: 14px;
+  margin-bottom: 23px;
+  margin-top: 9px;
+  width: 366px;
+  height: 16px;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  background-color: #202020;
-  border-right: none;
+  border-radius: 8px;
+  background: #2f2f2f;
+  border: none;
   color: #fff;
 }
 
 .login__btn-registration {
-  margin-top: 197px;
+  margin-top: 157px;
   margin-bottom: 16px;
   width: 396px;
   height: 45px;

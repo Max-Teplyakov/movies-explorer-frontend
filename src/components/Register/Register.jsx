@@ -1,14 +1,14 @@
-import logo from "../../images/logo.svg";
+import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 
 function Register() {
   return (
     <>
       <section className="register">
-        <img src={logo} alt="логотип" className="register__logo"/>
+        <img src={logo} alt="логотип" className="register__logo" />
         <h2 className="register__form__title">Добро пожаловать!</h2>
         <form className="register__form">
-        <div className="register__block">
+          <div className="register__block">
             <span className="register__span">Имя</span>
             <input
               type="name"
@@ -39,10 +39,10 @@ function Register() {
             />
           </div>
           <button type="submit" className="register__btn-registration">
-            Войти
+            Зарегистрироваться
           </button>
           <div className="register__text">
-          Уже зарегистрированы?
+            Уже зарегистрированы?
             <Link className="register__btn-register" to="/sign-up">
               Войти
             </Link>

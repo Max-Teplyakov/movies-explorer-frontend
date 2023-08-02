@@ -4,7 +4,8 @@
 }
 
 .techs__title {
-  padding-top: 110px;
+  padding-top: 102px;
+  margin-top: 0;
   margin-bottom: 0;
   padding-bottom: 23px;
   font-size: 22px;
@@ -58,4 +59,65 @@
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.56px;
+}
+
+@media screen and (max-width: 768px) {
+  .techs {
+    padding: 0 50px;
+  }
+  .techs__title {
+    padding-top: 93px;
+  }
+  .techs__title-skill {
+    margin: 80px 0 22px;
+  }
+  .techs__subtitle {
+    margin-bottom: 78px;
+    font-size: 12px;
+    line-height: 18px; /* 150% */
+    letter-spacing: -0.48px;
+  }
+  .techs__block {
+    padding-bottom: 90px;
+    font-size: 12px;
+    letter-spacing: -0.48px;
+  }
+  .techs__icon {
+    width: 84px;
+    height: 57px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .techs {
+    padding: 0 18px;
+  }
+
+  .techs__title {
+    padding-top: 45px;
+    padding-bottom: 29px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .techs__title-skill {
+    margin-top: 49px;
+    margin-bottom: 12px;
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+
+  .techs__subtitle {
+    margin-bottom: 42px;
+    font-size: 11px;
+    line-height: 16px; /* 145.455% */
+    letter-spacing: -0.44px;
+  }
+
+  .techs__block {
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: start;
+    width: 178px;
+  }
 }

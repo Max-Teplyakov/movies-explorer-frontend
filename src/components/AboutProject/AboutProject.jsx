@@ -24,17 +24,13 @@ function aboutProject() {
       </div>
 
       <div className="about-project__container-skill">
-        <div className="about-project__block">
-          <p className="about-project__date about-project__date_green">
-            1 неделя
-          </p>
-          <p className="about-project__skill">Back-end</p>
+        <div className="about-project__date">
+          <p className="about-project__date-back">1 неделя</p>
+          <p className="about-project__date-front">4 недели</p>
         </div>
-        <div className="about-project__block">
-          <p className="about-project__date about-project__date_grey">
-            4 недели
-          </p>
-          <p className="about-project__skill">Front-end</p>
+        <div className="about-project__skill">
+          <p className="about-project__skill-back">Back-end</p>
+          <p className="about-project__skill-front">Front-end</p>
         </div>
       </div>
     </section>
