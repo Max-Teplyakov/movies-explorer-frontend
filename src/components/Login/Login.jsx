@@ -1,32 +1,51 @@
 import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 function Login() {
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
+
   return (
     <>
       <section className="login">
         <img src={logo} alt="логотип" className="login__logo" />
         <h2 className="login__form__title">Рады видеть!</h2>
-        <form className="login__form">
+        <form className="login__form" novalidate>
           <div className="login__block">
-            <span className="login__span">E-mail</span>
+            <label className="login__label" htmlFor="email-input">
+              E-mail
+            </label>
             <input
               type="email"
               name="email"
               className="login__input"
-              id="email-login-input"
+              id="login-email-input"
+              onChange={handleChange}
               required
             />
           </div>
+          <span className="login__input-error email-input-error">
+            {errors.email}
+          </span>
           <div className="login__block">
-            <span className="login__span">Пароль</span>
+            <label
+              className="login__label login__label-password"
+              htmlFor="password-input"
+            >
+              Пароль
+            </label>
             <input
               type="password"
               name="password"
               className="login__input"
               id="login-password-input"
+              onChange={handleChange}
               required
             />
+            <span className="login__input-error password-input-error">
+              {errors.password}
+            </span>
           </div>
           <button type="submit" className="login__btn-registration">
             Войти

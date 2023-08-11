@@ -68,6 +68,7 @@ input:checked + .filter-checkbox__slider:before {
 }
 
 .filter-checkbox__text {
+  margin-top: 2px;
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -76,7 +77,8 @@ input:checked + .filter-checkbox__slider:before {
 
 @media screen and (max-width: 768px) {
   .filter-checkbox {
-    padding: 30px 15px 40px;
+    padding: 29px 30px 40px;
+    gap: 16px;
     flex-direction: row-reverse;
     justify-content: flex-start;
   }
@@ -84,7 +86,8 @@ input:checked + .filter-checkbox__slider:before {
 
 @media screen and (max-width: 320px) {
   .filter-checkbox {
-    padding-top: 41px;
+    padding-top: 39px;
+    gap: 14px;
     flex-direction: row-reverse;
     justify-content: center;
   }

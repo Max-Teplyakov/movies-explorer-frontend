@@ -8,7 +8,7 @@
 }
 
 .about-project__title {
-  margin-top: 110px;
+  margin-top: 112px;
   margin-bottom: 0;
 
   padding-bottom: 23px;
@@ -190,6 +190,16 @@
   }
 
   .about-project__skill {
+    margin-top: 0px;
+    margin-left: 0px;
     font-size: 11px;
+  }
+
+  .about-project__skill-front {
+    width: 184px;
+  }
+
+  .about-project__skill-back {
+    width: 100px;
   }
 }

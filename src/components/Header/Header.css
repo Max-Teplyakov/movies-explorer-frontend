@@ -5,22 +5,26 @@
   justify-content: space-between;
 }
 
-.header-auth {
-  padding: 0 70px;
+.header-landing {
   background-color: #202020;
-  display: flex;
-  justify-content: space-between;
-}
-
-.header__logo {
-  margin: 18px 0;
 }
 
 .header__auth {
+  display: flex;
+  justify-content: space-between;
   text-align: center;
   align-items: center;
   display: flex;
   list-style-type: none;
+}
+
+.header__logo {
+  margin: 17px 0;
+  transition: opacity 0.5s;
+}
+
+.header__logo:hover {
+  opacity: 0.7;
 }
 
 .header__registration {
@@ -56,21 +60,25 @@
 }
 
 .header__movies {
-  padding-left: 27px;
-  padding-bottom: 2px;
-  gap: 16px;
+  padding-bottom: 3px;
+  gap: 17px;
   text-align: center;
   align-items: center;
   display: flex;
   font-size: 13px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 18px;
 }
 
 .header__movies-link {
   color: #fff;
   text-decoration: none;
+  transition: opacity 0.5s;
+}
+
+.header__movies-link:hover {
+  opacity: 0.7;
 }
 
 .header__home {
@@ -80,7 +88,7 @@
 }
 
 .header__account {
-  margin-left: 29vmax;
+  margin-left: 375px;
   text-align: center;
   align-items: center;
   display: flex;
@@ -98,8 +106,12 @@
 
 .header__movies-save {
   color: #fff;
-
   text-decoration: none;
+  transition: opacity 0.5s;
+}
+
+.header__movies-save:hover {
+  opacity: 0.7;
 }
 
 .header__account-link {
@@ -108,11 +120,22 @@
   align-items: center;
   color: #fff;
   text-decoration: none;
+  transition: opacity 0.5s;
+}
+
+.header__account-link:hover {
+  opacity: 0.7;
+}
+
+.header__link-active {
+  font-weight: 500;
 }
 
 .header__account-container {
-  width: 26px;
-  height: 26px;
+  margin-bottom: 1px;
+  margin-right: 2px;
+  width: 25px;
+  height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -121,6 +144,10 @@
 }
 
 .header__account-img {
+  margin-top: 3px;
+  margin-right: 2px;
+  margin-left: 1px;
+  margin-bottom: 4px;
   width: 10px;
   height: 10px;
   background-image: url("../../images/account.png");
@@ -132,6 +159,18 @@
   display: none;
 }
 
+@media screen and (max-width: 1050px) {
+  .header__account {
+    margin-left: 280px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .header__account {
+    margin-left: 180px;
+  }
+}
+
 @media screen and (max-width: 777px) {
   .header {
     padding: 0 30px;
@@ -140,7 +179,7 @@
   .header-nav {
     position: fixed;
     top: 0;
-    right: -157%;
+    right: -250%;
     width: 503px;
     height: 100%;
     display: flex;
@@ -187,16 +226,17 @@
     line-height: normal;
   }
   .header__account {
-    display: none;
+    display: block;
   }
 
-  .header-auth {
-    padding: 0 15px 0 30px;
+  .header__account-link {
+    margin-top: 524px;
+    margin-right: 155px;
   }
 
   .header__burger {
-    margin-top: 27px;
-    margin-right: 5px;
+    margin-top: 28px;
+    margin-right: 8px;
     display: block;
     position: relative;
     width: 28px;
@@ -272,13 +312,10 @@
   }
 }
 
-@media screen and (max-width: 320px) {
-  .header-auth {
-    padding: 0 14px;
-  }
-
+@media screen and (max-width: 370px) {
   .header__burger {
     margin-right: 9px;
+    margin-top: 27px;
     width: 22px;
   }
 
@@ -299,8 +336,8 @@
   }
 
   .header__account {
-    padding-top: 448px;
-    padding-right: 60px;
+    padding-top: 446px;
+    padding-left: 13px;
     display: block;
   }
 }

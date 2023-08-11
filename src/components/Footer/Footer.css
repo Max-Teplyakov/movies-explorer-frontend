@@ -37,19 +37,30 @@
   margin: 0;
 }
 
+.footer__company-link {
+  text-decoration: none;
+  color: #fff;
+  transition: opacity 0.5s;
+}
+
+.footer__company-link:hover {
+  opacity: 0.7;
+}
+
 @media screen and (max-width: 768px) {
   .footer {
+    margin-top: 160px;
     padding: 0px 30px;
   }
 }
 
 @media screen and (max-width: 430px) {
   .footer {
-    padding: 129px 9px 0;
+    padding: 0 9px;
   }
 
   .footer__title {
-    padding-bottom: 22px;
+    padding-bottom: 21px;
     font-size: 12px;
   }
   .footer__block {
@@ -63,7 +74,7 @@
   }
 
   .footer__company {
-    margin-top: 10px;
+    margin-top: 9px;
     margin-bottom: 12px;
   }
 

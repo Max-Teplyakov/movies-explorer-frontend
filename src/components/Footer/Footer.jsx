@@ -7,8 +7,20 @@ function Footer() {
       <div className="footer__block">
         <p className="footer__year">&#169;2023</p>
         <div className="footer__links">
-          <p className="footer__company">Яндекс.Практикум</p>
-          <p className="footer__company">Github</p>
+          <a
+            className="footer__company-link"
+            href="https://github.com/Max-Teplyakov"
+            target="_blanck"
+          >
+            <p className="footer__company">Яндекс.Практикум</p>
+          </a>
+          <a
+            className="footer__company-link"
+            href="https://practicum.yandex.ru/"
+            target="_blanck"
+          >
+            <p className="footer__company">Github</p>
+          </a>
         </div>
       </div>
     </footer>

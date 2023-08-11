@@ -17,7 +17,7 @@
 }
 
 .promo__subtitle {
-  margin-bottom: 146px;
+  margin-bottom: 145px;
   max-width: 310px;
   min-height: 32px;
   font-size: 13px;
@@ -76,13 +76,13 @@
   }
 
   .promo__subtitle {
-    margin: 20px auto 0;
+    margin: 21px auto 0;
     text-align: center;
     max-width: 260px;
   }
 
   .promo__link {
-    margin: 91px auto 77px;
+    margin: 92px auto 77px;
   }
 }
 

@@ -17,7 +17,11 @@ function AboutMe() {
             Контур». После того, как прошёл курс по веб-разработке, начал
             заниматься фриланс-заказами и ушёл с постоянной работы.
           </div>
-          <a className="about-me__github" href="#">
+          <a
+            className="about-me__github"
+            href="https://github.com/Max-Teplyakov"
+            target="_blanck"
+          >
             Github
           </a>
         </div>
