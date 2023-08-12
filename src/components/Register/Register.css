@@ -6,6 +6,11 @@
 .register__logo {
   padding-top: 70px;
   padding-bottom: 38px;
+  transition: opacity 0.5s;
+}
+
+.register__logo:hover {
+  opacity: 0.7;
 }
 
 .register__title {
@@ -97,6 +102,11 @@
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
+  transition: opacity 0.5s;
+}
+
+.register__btn-register:hover {
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 768px) {

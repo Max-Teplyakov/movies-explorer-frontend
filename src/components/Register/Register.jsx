@@ -9,7 +9,9 @@ function Register() {
   return (
     <>
       <section className="register">
-        <img src={logo} alt="логотип" className="register__logo" />
+        <Link className="register__logo-link" to="/">
+          <img src={logo} alt="логотип Сайта" className="register__logo" />
+        </Link>
         <h2 className="register__title">Добро пожаловать!</h2>
         <form className="register__form">
           <div className="register__block">
@@ -74,7 +76,7 @@ function Register() {
           </button>
           <div className="register__text">
             Уже зарегистрированы?
-            <Link className="register__btn-register" to="/sign-up">
+            <Link className="register__btn-register" to="/signin">
               Войти
             </Link>
           </div>

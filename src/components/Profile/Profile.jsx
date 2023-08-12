@@ -1,5 +1,6 @@
 import Header from "../Header/Header";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const [isActive, setIsActive] = React.useState(true);
@@ -50,9 +51,9 @@ function Profile() {
             >
               Редактировать
             </button>
-            <button type="button" className="profile__btn-exit">
+            <Link className="profile__btn-exit" to="/">
               Выйти из аккаунта
-            </button>
+            </Link>
           </>
         ) : (
           <button

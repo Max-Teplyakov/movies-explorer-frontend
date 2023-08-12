@@ -176,7 +176,9 @@
   }
 
   .about-project__block {
+    margin: 0 auto;
     margin-bottom: 58px;
+    width: 284px;
   }
 
   .about-project__date-back {
@@ -190,6 +192,8 @@
   }
 
   .about-project__skill {
+    display: flex;
+    justify-content: center;
     margin-top: 0px;
     margin-left: 0px;
     font-size: 11px;
@@ -201,5 +205,11 @@
 
   .about-project__skill-back {
     width: 100px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about-project__block {
+    margin: 0 0 58px;
   }
 }

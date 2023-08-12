@@ -4,7 +4,7 @@ import React from "react";
 
 function Header() {
   //поменять значения в стэйте isLoggedIn для отображения коректной шапки
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isBurger, setIsBurger] = React.useState(false);
 
   function handleOpenBurger() {

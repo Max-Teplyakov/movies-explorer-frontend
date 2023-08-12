@@ -9,7 +9,9 @@ function Login() {
   return (
     <>
       <section className="login">
-        <img src={logo} alt="логотип" className="login__logo" />
+        <Link className="login__logo-link" to="/">
+          <img src={logo} alt="логотип Сайта" className="login__logo" />
+        </Link>
         <h2 className="login__form__title">Рады видеть!</h2>
         <form className="login__form" novalidate>
           <div className="login__block">
@@ -52,7 +54,7 @@ function Login() {
           </button>
           <div className="login__text">
             Ещё не зарегистрированы?
-            <Link className="login__btn-login" to="/sign-up">
+            <Link className="login__btn-login" to="/signup">
               Регистрация
             </Link>
           </div>
