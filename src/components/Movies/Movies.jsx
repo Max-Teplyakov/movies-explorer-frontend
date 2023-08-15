@@ -6,12 +6,14 @@ import { dataMovies } from "../../utils/data";
 
 function Movies() {
   return (
-    <main className="movies">
+    <>
       <Header />
-      <SearchForm />
-      <MoviesCardList dataMovies={dataMovies} />
+      <main className="movies">
+        <SearchForm />
+        <MoviesCardList dataMovies={dataMovies} />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 

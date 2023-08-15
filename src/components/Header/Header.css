@@ -177,6 +177,7 @@
   background-color: #202020;
   border: none;
 }
+
 .overlay {
   width: 267px;
   left: -29px;
@@ -275,6 +276,11 @@
     height: 21px;
     z-index: 5;
     cursor: pointer;
+    transition: opacity 0.5s;
+  }
+
+  .header__burger:hover {
+    opacity: 0.8;
   }
 
   .header__burger-span {

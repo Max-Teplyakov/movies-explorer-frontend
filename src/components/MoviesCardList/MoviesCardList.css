@@ -10,7 +10,7 @@
 list-style-type: none;
 }
 
-.movies-card-list__save {
+.movies-card-list_save {
   margin-bottom: 252px;
   justify-content: flex-start;
 }
@@ -46,7 +46,7 @@ list-style-type: none;
 @media screen and (max-width: 768px) {
   .movies-card-list {
     margin-top: 89px;
-    padding-left: 30px;
+    padding: 0 30px;
     column-gap: 30px;
     row-gap: 36px;
   }
@@ -59,11 +59,11 @@ list-style-type: none;
 @media screen and (max-width: 375px) {
   .movies-card-list {
     margin-top: 50px;
-    padding-left: 10px;
+    padding: 0 10px;
     row-gap: 20px;
   }
 
-  .movies-card-list__save {
+  .movies-card-list_save {
     margin-bottom: -5px;
 }
 

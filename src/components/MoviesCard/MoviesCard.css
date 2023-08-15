@@ -30,6 +30,7 @@
 }
 
 .movie-card__time {
+  margin: 0;
   padding: 1px 0 11px 10px;
   color: #8b8b8b;
   font-size: 11px;

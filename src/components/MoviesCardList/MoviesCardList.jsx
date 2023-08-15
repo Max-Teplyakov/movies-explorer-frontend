@@ -7,7 +7,7 @@ function MoviesCardList({ dataMovies }) {
     location.pathname === "/saved-movies" ? "movies-card-list_save" : ""
   }`;
   return (
-    <>
+    <section className="movies-cards">
       <ul className={`movies-card-list ${moviesClass}`}>
         {dataMovies.map((movieItem) => (
           <MoviesCard key={movieItem.movieId} movieData={movieItem} />
@@ -20,7 +20,7 @@ function MoviesCardList({ dataMovies }) {
       ) : (
         ""
       )}
-    </>
+    </section>
   );
 }
 

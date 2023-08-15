@@ -10,7 +10,7 @@ function MoviesCard({ movieData }) {
         <div className="movie-card__container">
           <div className="movie-card__conrainer-text">
             <h2 className="movie-card__text">{movieData.name}</h2>
-            <div className="movie-card__time">1ч 42м</div>
+            <p className="movie-card__time">1ч 42м</p>
           </div>
           <button
             className={`movie-card__like ${movieData.like} ${movieData.delete}`}
