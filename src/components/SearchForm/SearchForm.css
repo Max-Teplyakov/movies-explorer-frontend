@@ -25,10 +25,17 @@
   line-height: normal;
 }
 
+.search-form__input:focus {
+  outline: none;
+  border-bottom: 1px solid #8b8b8b;
+}
+
 .search-form__btn {
   margin-left: 6px;
   width: 34px;
   height: 34px;
+  background-color: #202020;
+  border: none;
   background-image: url("../../images/search.png");
   background-repeat: no-repeat;
   background-size: contain;

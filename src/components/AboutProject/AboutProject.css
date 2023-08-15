@@ -163,7 +163,7 @@
   .about-project__description {
     margin: 0;
     width: 284px;
-    margin-bottom: 17px;
+    margin-bottom: 16px;
     font-size: 18px;
     letter-spacing: -0.72px;
   }
@@ -179,6 +179,11 @@
     margin: 0 auto;
     margin-bottom: 58px;
     width: 284px;
+  }
+
+  .about-project__date {
+    margin-top: 59px;
+
   }
 
   .about-project__date-back {
@@ -210,6 +215,6 @@
 
 @media screen and (max-width: 320px) {
   .about-project__block {
-    margin: 0 0 58px;
+    margin: 0 0 56px;
   }
 }

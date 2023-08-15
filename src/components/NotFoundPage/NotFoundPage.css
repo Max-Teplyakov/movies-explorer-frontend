@@ -46,15 +46,6 @@
   .page-not-found__title {
     margin-top: 407px;
     margin-bottom: 4px;
-    padding-left: 17px;
-  }
-
-  .page-not-found__subtitle {
-    padding-left: 16px;
-  }
-
-  .page-not-found__exit {
-    padding-left: 23px;
   }
 }
 
@@ -67,7 +58,7 @@
   }
 
   .page-not-found__subtitle {
-    margin-bottom: 283px;
+    margin-bottom: 285px;
     font-size: 12px;
     padding-left: 0;
   }

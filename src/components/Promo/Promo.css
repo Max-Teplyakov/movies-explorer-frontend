@@ -44,13 +44,18 @@
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
+  transition: opacity 0.5s;
+}
+
+.promo__link:hover {
+  opacity: 0.8;
 }
 
 .promo__img {
   margin-top: 75px;
   width: 310px;
   height: 304px;
-  background-image: url("../../images/world.png");
+  background-image: url("../../images/world.svg");
   background-size: contain;
   background-repeat: no-repeat;
 }

@@ -22,13 +22,10 @@
   line-height: normal;
 }
 
-.register__block {
-  display: block;
-}
+
 
 .register__label {
   display: block;
-  margin-bottom: 10px;
   color: #8b8b8b;
   font-size: 10px;
   font-style: normal;
@@ -37,7 +34,8 @@
 }
 
 .register__input {
-  padding: 14px;
+  margin-top: 7px;
+  padding: 15px;
   width: 368px;
   height: 18px;
   font-size: 13px;
@@ -48,6 +46,11 @@
   background: #2f2f2f;
   border: none;
   color: #fff;
+}
+
+.register__input:focus {
+  outline: none;
+  border-bottom: 1px solid #8b8b8b;
 }
 
 .register__input-error {
@@ -111,7 +114,7 @@
 
 @media screen and (max-width: 768px) {
   .register__logo {
-    padding-top: 232px;
+    padding-top: 230px;
   }
 }
 
@@ -133,8 +136,7 @@
   }
 
   .register__input {
-    padding: 14px 0;
-    width: 260px;
+    width: 230px;
   }
 
   .register__btn-registration {

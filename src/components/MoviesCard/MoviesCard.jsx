@@ -1,6 +1,6 @@
 function MoviesCard({ movieData }) {
   return (
-    <div className="movie-card">
+    <li className="movie-card">
       <div className="movie-card__block">
         <img
           className="movie-card__img"
@@ -9,7 +9,7 @@ function MoviesCard({ movieData }) {
         />
         <div className="movie-card__container">
           <div className="movie-card__conrainer-text">
-            <div className="movie-card__text">{movieData.name}</div>
+            <h2 className="movie-card__text">{movieData.name}</h2>
             <div className="movie-card__time">1ч 42м</div>
           </div>
           <button
@@ -18,7 +18,7 @@ function MoviesCard({ movieData }) {
           ></button>
         </div>
       </div>
-    </div>
+    </li>
   );
 }
 

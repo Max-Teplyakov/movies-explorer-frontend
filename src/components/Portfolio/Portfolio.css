@@ -1,5 +1,5 @@
 .portfolio {
-  padding: 0 70px 185px;
+  padding: 0 70px 172px;
 }
 
 .portfolio__title {
@@ -36,6 +36,14 @@
   opacity: 0.7;
 }
 
+.portfolio__blocks {
+  padding-left: 0;
+}
+
+.portfolio__block-link {
+list-style-type: none;
+}
+
 .portfolio__pointer {
   margin-top: 5px;
   padding-right: 5px;
@@ -45,7 +53,7 @@
 
 @media screen and (max-width: 768px) {
   .portfolio {
-    padding: 0 50px 149px;
+    padding: 0 50px 133px;
   }
   .portfolio__subtitle {
     font-size: 28px;
@@ -59,6 +67,7 @@
 
 @media screen and (max-width: 430px) {
   .portfolio {
+    margin-bottom: 131px;
     padding: 0 14px;
   }
   .portfolio__subtitle {
