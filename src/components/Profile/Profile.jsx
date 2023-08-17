@@ -1,13 +1,35 @@
 import Header from "../Header/Header";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile() {
+function Profile({ signOut, handleUpdateUser }) {
   const [isActive, setIsActive] = React.useState(true);
+
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
+
+  const currentUser = useContext(CurrentUserContext);
 
   function handleRedactProfile() {
     setIsActive(!isActive);
   }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, name } = values;
+    console.log(values);
+    handleUpdateUser({ email, name });
+  };
+
+  useEffect(() => {
+    setValues({
+      currentName: currentUser.name,
+      currentEmail: currentUser.email,
+    });
+  }, [setValues, currentUser]);
 
   return (
     <>
@@ -15,7 +37,7 @@ function Profile() {
       <main className="profile">
         <section className="profile__section">
           <h1 className="profile__form-title">Привет, Виталий!</h1>
-          <form className="profile__form">
+          <form className="profile__form" onSubmit={handleSubmit}>
             <label
               className="profile__form-label profile__form-border"
               htmlFor="name-input"
@@ -29,10 +51,13 @@ function Profile() {
                 placeholder="Имя"
                 minLength={2}
                 maxLength={30}
-                value="Виталий"
-                disabled
+                value={values.currentName}
+                onChange={handleChange}
               />
             </label>
+            <span className="profile__input-error name-input-error">
+              {errors.name}
+            </span>
             <label className="profile__form-label" htmlFor="email-input">
               E-mail
               <input
@@ -41,10 +66,13 @@ function Profile() {
                 name="email"
                 id="email-input"
                 placeholder="E-mail"
-                value="pochta@yandex.ru"
-                disabled
+                onChange={handleChange}
+                value={values.currentEmail}
               />
             </label>
+            <span className="profile__input-error email-input-error">
+              {errors.email}
+            </span>
             {isActive ? (
               <>
                 <button
@@ -54,16 +82,12 @@ function Profile() {
                 >
                   Редактировать
                 </button>
-                <Link className="profile__btn-exit" to="/">
+                <Link className="profile__btn-exit" to="/" onClick={signOut}>
                   Выйти из аккаунта
                 </Link>
               </>
             ) : (
-              <button
-                type="button"
-                className="profile__btn-save"
-                onClick={handleRedactProfile}
-              >
+              <button type="submit" className="profile__btn-save">
                 Сохранить
               </button>
             )}

@@ -1,9 +1,20 @@
 import logo from "../../images/logo.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function Login() {
-  const { handleChange, errors } = useFormAndValidation();
+function Login({ handleLogin }) {
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+  useFormAndValidation();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!values.email || !values.password) {
+      return;
+    }
+    const { password, email } = values;
+    handleLogin(password, email);
+  };
 
   return (
     <>
@@ -13,8 +24,8 @@ function Login() {
             <img src={logo} alt="логотип Сайта" className="login__logo" />
           </Link>
           <h1 className="login__title">Рады видеть!</h1>
-          <form className="login__form">
-            <label className="login__label" htmlFor="email-input">
+          <form className="login__form" onSubmit={handleSubmit}>
+            <label className="login__label" htmlFor="login-email-input">
               E-mail
               <input
                 type="email"
@@ -31,7 +42,7 @@ function Login() {
             </span>
             <label
               className="login__label login__label-password"
-              htmlFor="password-input"
+              htmlFor="login-password-input"
             >
               Пароль
               <input

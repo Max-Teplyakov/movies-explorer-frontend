@@ -1,11 +1,34 @@
 import logo from "../../images/logo.svg";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import * as auth from "../../utils/auth";
 
 function Register() {
+  let navigate = useNavigate();
+
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
 
+  function handleRegistration(password, email, name) {
+    auth
+      .register(password, email, name)
+      .then((res) => {
+        if (res) {
+          navigate("/signin", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { password, email, name } = values;
+    handleRegistration(password, email, name);
+  };
   return (
     <>
       <main className="register">
@@ -14,7 +37,7 @@ function Register() {
             <img src={logo} alt="логотип Сайта" className="register__logo" />
           </Link>
           <h1 className="register__title">Добро пожаловать!</h1>
-          <form className="register__form">
+          <form className="register__form" onSubmit={handleSubmit}>
             <label className="register__label" htmlFor="register-name-input">
               Имя
               <input
@@ -69,7 +92,7 @@ function Register() {
               />
             </label>
             <span className="register__input-error password-input-error">
-              Что то пошло не так
+              {errors.password}
             </span>
             <button type="submit" className="register__btn-registration">
               Зарегистрироваться

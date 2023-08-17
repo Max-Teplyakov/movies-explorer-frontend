@@ -2,9 +2,7 @@ import logo from "../../images/logo.svg";
 import { Link, NavLink } from "react-router-dom";
 import React from "react";
 
-function Header() {
-  //поменять значения в стэйте isLoggedIn для отображения коректной шапки
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+function Header({ loggedIn }) {
   const [isBurger, setIsBurger] = React.useState(false);
 
   function handleOpenBurger() {
@@ -13,14 +11,14 @@ function Header() {
 
   return (
     <>
-      {!isLoggedIn ? (
+      {!loggedIn ? (
         <header className="header header-landing">
           <Link className="header__logo-link" to="/">
             <img src={logo} alt="логотип Сайта" className="header__logo" />
           </Link>
 
           <nav className={`header-nav ${isBurger ? "visible" : ""}`}>
-          <div className="overlay"></div>
+            <div className="overlay"></div>
             <Link className="header__home" to="/">
               Главная
             </Link>
