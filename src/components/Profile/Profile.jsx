@@ -51,7 +51,7 @@ function Profile({ signOut, handleUpdateUser }) {
                 placeholder="Имя"
                 minLength={2}
                 maxLength={30}
-                value={values.currentName}
+                value={values.currentName || ""}
                 onChange={handleChange}
               />
             </label>
@@ -67,7 +67,7 @@ function Profile({ signOut, handleUpdateUser }) {
                 id="email-input"
                 placeholder="E-mail"
                 onChange={handleChange}
-                value={values.currentEmail}
+                value={values.currentEmail || ""}
               />
             </label>
             <span className="profile__input-error email-input-error">

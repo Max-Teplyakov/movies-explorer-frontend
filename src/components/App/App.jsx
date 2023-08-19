@@ -10,19 +10,21 @@ import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import * as auth from "../../utils/auth";
-import { api } from "../../utils/api";
+import { mainApi } from "../../utils/MainApi";
+import { moviesApi } from "../../utils/MoviesApi";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [isMovies, setIsMovies] = useState([]);
 
   let navigate = useNavigate();
 
   useEffect(() => {
     handleTokenCheck();
   }, []);
-
+  //проверка jwt токена
   const handleTokenCheck = () => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -30,7 +32,7 @@ function App() {
         .checkToken(token)
         .then((res) => {
           if (res) {
-            setCurrentUser(res)
+            setCurrentUser(res);
             setLoggedIn(true);
             navigate("/movies", { replace: true });
           }
@@ -41,7 +43,7 @@ function App() {
     }
   };
 
-
+  // вход в акаунт
   function handleLogin(email, password) {
     auth
       .login(email, password)
@@ -54,48 +56,65 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   }
-
-    function signOut() {
+  // выход из акаунта
+  function signOut() {
     localStorage.removeItem("token");
     navigate("/");
     setLoggedIn(false);
   }
-
+  // редактирование имени и емэйла
   function handleUpdateUser(data) {
-    api
+    mainApi
       .replaceUserData(data)
       .then((userData) => {
         setCurrentUser(userData);
       })
       .catch((err) => console.log(err));
   }
-
+  useEffect(() => {
+    moviesApi.getInitialMovies().then((dataMovies) => {
+      setIsMovies(dataMovies);
+    });
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
-        <Route path="/" element={<Main loggedIn={loggedIn}/>} />
-        <Route path="/movies" element={<ProtectedRouteElement
-                element={Movies}
-                loggedIn={loggedIn}
-              />} />
-        <Route path="/saved-movies" element={<ProtectedRouteElement
-                element={SavedMovies}
-                loggedIn={loggedIn}
-              />} />
-        <Route path="/signin" element={<Login handleLogin={handleLogin}/>} />
+        <Route path="/" element={<Main loggedIn={loggedIn} />} />
+        <Route
+          path="/movies"
+          element={
+            <ProtectedRouteElement
+              element={Movies}
+              loggedIn={loggedIn}
+              isMovies={isMovies}
+            />
+          }
+        />
+        <Route
+          path="/saved-movies"
+          element={
+            <ProtectedRouteElement element={SavedMovies} loggedIn={loggedIn} />
+          }
+        />
+        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signup" element={<Register />} />
-        <Route path="/profile" element={<ProtectedRouteElement
-                element={Profile}
-                signOut={signOut}
-                loggedIn={loggedIn}
-                handleUpdateUser={handleUpdateUser}
-              />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRouteElement
+              element={Profile}
+              signOut={signOut}
+              loggedIn={loggedIn}
+              handleUpdateUser={handleUpdateUser}
+            />
+          }
+        />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
-      </CurrentUserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

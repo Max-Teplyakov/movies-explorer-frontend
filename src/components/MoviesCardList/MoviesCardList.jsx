@@ -1,19 +1,20 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useLocation } from "react-router-dom";
 
-function MoviesCardList({ dataMovies }) {
+function MoviesCardList({isMovies}) {
   const location = useLocation();
   const moviesClass = `${
     location.pathname === "/saved-movies" ? "movies-card-list_save" : ""
   }`;
+
   return (
     <section className="movies-cards">
       <ul className={`movies-card-list ${moviesClass}`}>
-        {dataMovies.map((movieItem) => (
-          <MoviesCard key={movieItem.movieId} movieData={movieItem} />
+        {isMovies.map((movieItem) => (
+          <MoviesCard key={movieItem.id} movieData={movieItem} />
         ))}
       </ul>
-      {dataMovies.length > 15 ? (
+      {isMovies.length > 15 ? (
         <button type="button" className="button-next">
           Ещё
         </button>

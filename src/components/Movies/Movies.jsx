@@ -2,15 +2,14 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import { dataMovies } from "../../utils/data";
 
-function Movies() {
+function Movies({isMovies}) {
   return (
     <>
       <Header />
       <main className="movies">
         <SearchForm />
-        <MoviesCardList dataMovies={dataMovies} />
+        <MoviesCardList isMovies={isMovies}/>
       </main>
       <Footer />
     </>
