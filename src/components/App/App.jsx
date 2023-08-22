@@ -1,4 +1,5 @@
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+
 import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
@@ -18,12 +19,27 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isMovies, setIsMovies] = useState([]);
+  const [isSaveMovies, setIsSaveMovies] = useState([]);
+  const [isPreloader, setIsPreloader] = useState(false);
+  const [isShortsFilms, setIsShortsFilms] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  let navigate = useNavigate();
-
+  // проверка токена, запрос к сохраненым карточкам
   useEffect(() => {
     handleTokenCheck();
-  }, []);
+    mainApi.getSavedMovies().then((SavedMovies) => {
+      setIsSaveMovies(SavedMovies);
+    });
+  }, [loggedIn]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      if (location.pathname === "/signin" || location.pathname === "/signup") {
+        navigate("/movies");
+      }
+    }
+  }, [location.pathname, loggedIn]);
   //проверка jwt токена
   const handleTokenCheck = () => {
     const token = localStorage.getItem("token");
@@ -34,7 +50,7 @@ function App() {
           if (res) {
             setCurrentUser(res);
             setLoggedIn(true);
-            navigate("/movies", { replace: true });
+            navigate(location.pathname, { replace: true });
           }
         })
         .catch((err) => {
@@ -42,6 +58,22 @@ function App() {
         });
     }
   };
+  // Регистрация
+  function handleRegistration(password, email, name) {
+    auth
+      .register(password, email, name)
+      .then(() => {
+        handleLogin(password, email);
+      })
+      .then((res) => {
+        if (res) {
+          navigate("/signin", { replace: true });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   // вход в акаунт
   function handleLogin(email, password) {
@@ -60,7 +92,7 @@ function App() {
   }
   // выход из акаунта
   function signOut() {
-    localStorage.removeItem("token");
+    localStorage.clear();
     navigate("/");
     setLoggedIn(false);
   }
@@ -73,11 +105,54 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-  useEffect(() => {
-    moviesApi.getInitialMovies().then((dataMovies) => {
-      setIsMovies(dataMovies);
+  // поиск фильмов
+  function handleSearchMovies(string) {
+    localStorage.setItem("SearchForm", JSON.stringify(string));
+    setIsPreloader(true);
+    moviesApi
+      .getInitialMovies()
+      .then((dataMovies) => {
+        localStorage.setItem("moviesFromMoviesApi", JSON.stringify(dataMovies));
+      })
+      .then(() => {
+        const searchFilms = JSON.parse(
+          localStorage.getItem("moviesFromMoviesApi")
+        );
+        const searchFilter = searchFilms.filter((movie) => {
+          return movie.nameRU.toLowerCase().includes(string);
+        });
+        setIsPreloader(false);
+        localStorage.setItem("moviesSearchResult", JSON.stringify(searchFilter));
+        setIsMovies(searchFilter);
+      });
+  }
+
+  // сохранение фильма
+  function moviesSave(film) {
+    mainApi.addMovie(film).then((res) => {
+      setIsSaveMovies((state) => [res, ...state]);
     });
-  }, [loggedIn]);
+  }
+
+  // удаление фильма
+  function deleteMovies(movie) {
+    console.log(movie);
+    mainApi.deleteMovie(movie._id).then((res) => {
+      const deletedMovieId = isSaveMovies.findIndex((i) => i._id === movie._id);
+      let newSaveMovies = [...isSaveMovies];
+      newSaveMovies.splice(deletedMovieId, 1);
+      setIsSaveMovies(newSaveMovies);
+    });
+  }
+
+  function checkboxToggle(checkboxState) {
+    localStorage.setItem("checkboxState", checkboxState);
+    if (checkboxState) {
+      setIsShortsFilms(isMovies.filter((c) => c.duration < 40));
+    } else {
+      setIsShortsFilms(isMovies);
+    }
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -90,17 +165,24 @@ function App() {
               element={Movies}
               loggedIn={loggedIn}
               isMovies={isMovies}
+              handleSearchMovies={handleSearchMovies}
+              moviesSave={moviesSave}
+              isPreloader={isPreloader}
+              checkboxToggle={checkboxToggle}
             />
           }
         />
         <Route
           path="/saved-movies"
           element={
-            <ProtectedRouteElement element={SavedMovies} loggedIn={loggedIn} />
+            <ProtectedRouteElement
+              element={SavedMovies}
+              loggedIn={loggedIn}
+              isSaveMovies={isSaveMovies}
+              deleteMovies={deleteMovies}
+            />
           }
         />
-        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
-        <Route path="/signup" element={<Register />} />
         <Route
           path="/profile"
           element={
@@ -112,7 +194,12 @@ function App() {
             />
           }
         />
-        <Route path="/*" element={<NotFoundPage />} />
+        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route
+          path="/signup"
+          element={<Register handleRegistration={handleRegistration} />}
+        />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </CurrentUserContext.Provider>
   );

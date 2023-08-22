@@ -32,7 +32,8 @@ export default class MainApi {
     movieId,
     nameRU,
     nameEN,
-  }) {
+    id
+  }, userId) {
     const jwt = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
@@ -46,10 +47,11 @@ export default class MainApi {
         duration,
         year,
         description,
-        image,
+        image: `https://api.nomoreparties.co${image.url}`,
         trailerLink,
-        thumbnail,
-        movieId,
+        thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
+        owner: userId,
+        movieId: id,
         nameRU,
         nameEN,
       }),

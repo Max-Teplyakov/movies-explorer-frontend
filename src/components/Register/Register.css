@@ -85,6 +85,13 @@
   opacity: 0.8;
 }
 
+.register__btn-registration_inactive {
+  background: #F8F8F8;
+color: #C2C2C2;
+  pointer-events: none;
+  user-select: none;
+}
+
 .register__text {
   margin-bottom: 70px;
   color: #8b8b8b;

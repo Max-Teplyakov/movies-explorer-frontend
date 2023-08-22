@@ -5,24 +5,11 @@ import { useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import * as auth from "../../utils/auth";
 
-function Register() {
+function Register({handleRegistration}) {
   let navigate = useNavigate();
 
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
-
-  function handleRegistration(password, email, name) {
-    auth
-      .register(password, email, name)
-      .then((res) => {
-        if (res) {
-          navigate("/signin", { replace: true });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -94,7 +81,11 @@ function Register() {
             <span className="register__input-error password-input-error">
               {errors.password}
             </span>
-            <button type="submit" className="register__btn-registration">
+            <button
+              type="submit"
+              className={`register__btn-registration ${isValid ? "" : "register__btn-registration_inactive"}`}
+              disabled={!isValid}
+            >
               Зарегистрироваться
             </button>
             <div className="register__text">

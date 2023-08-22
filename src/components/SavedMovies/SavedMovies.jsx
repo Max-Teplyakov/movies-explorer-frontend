@@ -3,13 +3,13 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-function SavedMovies({getMovies, isMovies}) {
+function SavedMovies({isSaveMovies, deleteMovies}) {
   return (
     <>
       <Header />
       <main className="saved-movies">
         <SearchForm />
-        <MoviesCardList isMovies={isMovies}/>
+        <MoviesCardList isMovies={isSaveMovies} deleteMovies={deleteMovies}/>
       </main>
       <Footer />
     </>

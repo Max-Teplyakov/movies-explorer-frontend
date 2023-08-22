@@ -1,18 +1,27 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import { useState } from "react";
-// thumbnial =>images=>formats, и movieId  а в базе id
-function SearchForm() {
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
+function SearchForm({handleSearchMovies, checkboxToggle}) {
+  const location = useLocation();
 
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
   const inputError = errors.searchfilm ? "search-form__input-error_active" : "";
+  useEffect(() => {
+    if (location.pathname === "/movies") {
+      setValues({
+        searchfilm: JSON.parse(localStorage.getItem("SearchForm")),
+      });
+    }
+
+  }, [setValues]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {name} = values;
-    // findMovie(name);
+    const {searchfilm} = values;
+    handleSearchMovies(searchfilm)
   };
 
   return (
@@ -26,6 +35,7 @@ function SearchForm() {
             minLength={2}
             placeholder="Фильм"
             className="search-form__input"
+            value={values.searchfilm || ""}
             required
             onChange={handleChange}
           ></input>
@@ -35,7 +45,7 @@ function SearchForm() {
           Нужно ввести ключевое слово
         </span>
       </form>
-      <FilterCheckbox />
+      <FilterCheckbox checkboxToggle={checkboxToggle}/>
     </section>
   );
 }
