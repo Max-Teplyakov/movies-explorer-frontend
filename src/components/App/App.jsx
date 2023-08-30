@@ -65,6 +65,20 @@ function App() {
     }
   }, [location.pathname, loggedIn]);
 
+  useEffect(() => {
+    if (location.pathname === "/movies") {
+      setCheckbox(JSON.parse(localStorage.getItem("checkboxState")));
+    }
+  }, [checkbox, setCheckbox]);
+
+  useEffect(() => {
+    if (location.pathname === "/saved-movies") {
+      setCheckboxSave(
+        JSON.parse(localStorage.getItem("checkboxStateSaveMovies"))
+      );
+    }
+  }, [checkboxSave, setCheckboxSave]);
+
   //проверка jwt токена
   const handleTokenCheck = () => {
     const token = localStorage.getItem("token");
@@ -264,20 +278,6 @@ function App() {
       JSON.parse(localStorage.getItem("checkboxStateSaveMovies"))
     );
   }, [checkboxSave, isSaveMovies, setToggleSaveMovies]);
-
-  useEffect(() => {
-    if (location.pathname === "/movies") {
-      setCheckbox(JSON.parse(localStorage.getItem("checkboxState")));
-    }
-  }, [checkbox, setCheckbox]);
-
-  useEffect(() => {
-    if (location.pathname === "/saved-movies") {
-      setCheckboxSave(
-        JSON.parse(localStorage.getItem("checkboxStateSaveMovies"))
-      );
-    }
-  }, [checkboxSave, setCheckboxSave]);
 
   function handleChecboxChange() {
     setCheckbox(!checkbox);

@@ -11,11 +11,9 @@ export default class MoviesApi {
   }
   //получить список всех фильмов в виде массива
   getInitialMovies() {
-    const jwt = localStorage.getItem('token');
     return fetch(this._baseUrl, {
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${jwt}`,
       },
     }).then((res) => this._getResponseData(res));
   }
@@ -23,14 +21,4 @@ export default class MoviesApi {
 
 export const moviesApi = new MoviesApi({
   baseUrl: "https://api.nomoreparties.co/beatfilm-movies",
-  });
-
-
-
-
-
-
-
-
-
-
+});
