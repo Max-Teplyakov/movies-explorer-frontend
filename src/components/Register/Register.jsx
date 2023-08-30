@@ -8,8 +8,7 @@ function Register({
   isSuccessMesage,
   isSuccess,
 }) {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();

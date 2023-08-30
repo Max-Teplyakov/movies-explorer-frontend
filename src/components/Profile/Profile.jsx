@@ -1,7 +1,7 @@
 import Header from "../Header/Header";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
@@ -12,8 +12,8 @@ function Profile({
   isSuccessMesage,
   isSuccess,
 }) {
-  const [isActive, setIsActive] = React.useState(true);
-  const [previousStateValues, setPreviousStateValues] = React.useState([]);
+  const [isActive, setIsActive] = useState(true);
+  const [previousStateValues, setPreviousStateValues] = useState([]);
 
   const { values, handleChange, errors, isValid, setValues, setIsValid } =
     useFormAndValidation();

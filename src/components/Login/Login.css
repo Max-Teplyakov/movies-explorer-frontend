@@ -86,6 +86,13 @@
   opacity: 0.8;
 }
 
+.login__btn-registration_inactive {
+  background: #f8f8f8;
+  color: #c2c2c2;
+  pointer-events: none;
+  user-select: none;
+}
+
 .login__text {
   margin-left: 1px;
   margin-bottom: 69px;

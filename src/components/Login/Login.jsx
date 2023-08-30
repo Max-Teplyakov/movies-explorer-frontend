@@ -64,7 +64,13 @@ function Login({ handleLogin, isErrorMessage, isSuccessMesage, isSuccess }) {
             ) : (
               <span className="login__btn-error">{isErrorMessage}</span>
             )}
-            <button type="submit" className="login__btn-registration">
+            <button
+              type="submit"
+              className={`login__btn-registration ${
+                isValid ? "" : "login__btn-registration_inactive"
+              }`}
+              disabled={!isValid}
+            >
               Войти
             </button>
             <div className="login__text">
