@@ -6,10 +6,13 @@ import Preloader from "../Preloader/Preloader";
 
 function Movies({
   isMovies,
+  isSaveMovies,
+  moviesSave,
+  deleteMovies,
+  handleChecboxChange,
   handleSearchMovies,
   isPreloader,
-  moviesSave,
-  checkboxToggle,
+  checkbox,
 }) {
   return (
     <>
@@ -17,11 +20,21 @@ function Movies({
       <main className="movies">
         <SearchForm
           handleSearchMovies={handleSearchMovies}
-          checkboxToggle={checkboxToggle}
+          handleChecboxChange={handleChecboxChange}
+          checkbox={checkbox}
         />
-        {isPreloader ? <Preloader /> : <></>}
-        <MoviesCardList isMovies={isMovies} moviesSave={moviesSave} />
+        {isPreloader ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList
+            isMovies={isMovies}
+            isSaveMovies={isSaveMovies}
+            moviesSave={moviesSave}
+            deleteMovies={deleteMovies}
+          />
+        )}
       </main>
+
       <Footer />
     </>
   );

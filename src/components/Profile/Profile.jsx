@@ -1,47 +1,62 @@
 import Header from "../Header/Header";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile({ signOut, handleUpdateUser }) {
+function Profile({
+  signOut,
+  handleUpdateUser,
+  isErrorMessage,
+  isSuccessMesage,
+  isSuccess,
+}) {
   const [isActive, setIsActive] = React.useState(true);
+  const [previousStateValues, setPreviousStateValues] = React.useState([]);
 
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
+  const { values, handleChange, errors, isValid, setValues, setIsValid } =
     useFormAndValidation();
 
   const currentUser = useContext(CurrentUserContext);
 
   function handleRedactProfile() {
     setIsActive(!isActive);
+    setPreviousStateValues(values);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { email, name } = values;
-    console.log(values);
     handleUpdateUser({ email, name });
+    setIsActive(!isActive);
   };
 
   useEffect(() => {
+    const { name, email } = currentUser;
     setValues({
-      currentName: currentUser.name,
-      currentEmail: currentUser.email,
+      name: name,
+      email: email,
     });
   }, [setValues, currentUser]);
+
+  useEffect(() => {
+    if (
+      values.name === previousStateValues.name &&
+      values.email === previousStateValues.email
+    ) {
+      setIsValid(false);
+    }
+  }, [values, previousStateValues, setIsValid]);
 
   return (
     <>
       <Header />
       <main className="profile">
         <section className="profile__section">
-          <h1 className="profile__form-title">Привет, Виталий!</h1>
+          <h1 className="profile__form-title">Привет, {currentUser.name} !</h1>
           <form className="profile__form" onSubmit={handleSubmit}>
-            <label
-              className="profile__form-label profile__form-border"
-              htmlFor="name-input"
-            >
+            <label className="profile__form-label" htmlFor="name-input">
               Имя
               <input
                 className="profile__form-input"
@@ -51,13 +66,15 @@ function Profile({ signOut, handleUpdateUser }) {
                 placeholder="Имя"
                 minLength={2}
                 maxLength={30}
-                value={values.currentName || ""}
+                disabled={isActive}
+                value={values.name || ""}
                 onChange={handleChange}
               />
             </label>
             <span className="profile__input-error name-input-error">
               {errors.name}
             </span>
+            <hr className="profile__form-line"></hr>
             <label className="profile__form-label" htmlFor="email-input">
               E-mail
               <input
@@ -66,8 +83,9 @@ function Profile({ signOut, handleUpdateUser }) {
                 name="email"
                 id="email-input"
                 placeholder="E-mail"
+                disabled={isActive}
                 onChange={handleChange}
-                value={values.currentEmail || ""}
+                value={values.email || ""}
               />
             </label>
             <span className="profile__input-error email-input-error">
@@ -87,9 +105,24 @@ function Profile({ signOut, handleUpdateUser }) {
                 </Link>
               </>
             ) : (
-              <button type="submit" className="profile__btn-save">
-                Сохранить
-              </button>
+              <>
+                <button
+                  type="submit"
+                  className={
+                    isValid
+                      ? "profile__btn-save"
+                      : "profile__btn-save profile__btn-save_disabled"
+                  }
+                  disabled={!isValid}
+                >
+                  Сохранить
+                </button>
+              </>
+            )}
+            {isSuccess ? (
+              <span className="profile__btn-success">{isSuccessMesage}</span>
+            ) : (
+              <span className="profile__btn-error">{isErrorMessage}</span>
             )}
           </form>
         </section>

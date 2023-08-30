@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
-
-function FilterCheckbox({ checkboxToggle }) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  function handleChecboxChange() {
-    setIsChecked(!isChecked);
-  }
-
-  useEffect(() => {
-    checkboxToggle(isChecked)
-  }, [isChecked])
-
+function FilterCheckbox({ handleChecboxChange, checkbox }) {
   return (
     <div className="filter-checkbox">
       <label className="filter-checkbox__switch">
         <input
           type="checkbox"
-          checked={isChecked}
+          checked={checkbox}
           onChange={handleChecboxChange}
         />
         <span className="filter-checkbox__slider round"></span>

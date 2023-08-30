@@ -95,6 +95,9 @@
 }
 
 @media screen and (max-width: 380px) {
+  .search {
+    padding: 0 15px;
+  }
   .search-form {
     padding: 0;
   }

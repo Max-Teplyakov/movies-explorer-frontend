@@ -1,13 +1,13 @@
 import logo from "../../images/logo.svg";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import * as auth from "../../utils/auth";
 
-function Register({handleRegistration}) {
-  let navigate = useNavigate();
-
+function Register({
+  handleRegistration,
+  isErrorMessage,
+  isSuccessMesage,
+  isSuccess,
+}) {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
 
@@ -81,9 +81,16 @@ function Register({handleRegistration}) {
             <span className="register__input-error password-input-error">
               {errors.password}
             </span>
+            {isSuccess ? (
+              <span className="register__btn-error">{isSuccessMesage}</span>
+            ) : (
+              <span className="register__btn-error">{isErrorMessage}</span>
+            )}
             <button
               type="submit"
-              className={`register__btn-registration ${isValid ? "" : "register__btn-registration_inactive"}`}
+              className={`register__btn-registration ${
+                isValid ? "" : "register__btn-registration_inactive"
+              }`}
               disabled={!isValid}
             >
               Зарегистрироваться

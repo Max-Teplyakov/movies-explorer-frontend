@@ -1,8 +1,9 @@
 import logo from "../../images/logo.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import React from "react";
 
 function Header({ loggedIn }) {
+  const location = useLocation();
   const [isBurger, setIsBurger] = React.useState(false);
 
   function handleOpenBurger() {
@@ -12,7 +13,11 @@ function Header({ loggedIn }) {
   return (
     <>
       {!loggedIn ? (
-        <header className="header header-landing">
+        <header
+          className={`header header-landing ${
+            location.pathname === "/" ? "header_color_blue" : ""
+          }`}
+        >
           <Link className="header__logo-link" to="/">
             <img src={logo} alt="логотип Сайта" className="header__logo" />
           </Link>

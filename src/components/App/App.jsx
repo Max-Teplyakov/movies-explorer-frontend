@@ -17,20 +17,45 @@ import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isMovies, setIsMovies] = useState([]);
+  const [isSearchMovies, setIsSearchMovies] = useState(
+    JSON.parse(localStorage.getItem("moviesSearchResult"))
+  );
   const [isSaveMovies, setIsSaveMovies] = useState([]);
   const [isPreloader, setIsPreloader] = useState(false);
-  const [isShortsFilms, setIsShortsFilms] = useState([]);
+  const [isErrorMessage, setIsErrorMessage] = useState("");
+  const [isSuccessMesage, setIsSuccessMesage] = useState("");
+  const [checkbox, setCheckbox] = useState(
+    JSON.parse(localStorage.getItem("checkboxState"))
+  );
+  const [checkboxSave, setCheckboxSave] = useState(
+    JSON.parse(localStorage.getItem("checkboxStateSaveMovies"))
+  );
+  const [toggleMovies, setToggleMovies] = useState([]);
+  const [toggleSaveMovies, setToggleSaveMovies] = useState([]);
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  // проверка токена, запрос к сохраненым карточкам
   useEffect(() => {
     handleTokenCheck();
-    mainApi.getSavedMovies().then((SavedMovies) => {
-      setIsSaveMovies(SavedMovies);
-    });
+    console.log(loggedIn);
+    if (loggedIn) {
+      mainApi
+        .getSavedMovies()
+        .then((SavedMovies) => {
+          setIsSaveMovies(SavedMovies);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      if (!loggedIn) {
+        setToggleMovies([]);
+        setIsSearchMovies([]);
+      }
+    }
   }, [loggedIn]);
 
   useEffect(() => {
@@ -40,6 +65,7 @@ function App() {
       }
     }
   }, [location.pathname, loggedIn]);
+
   //проверка jwt токена
   const handleTokenCheck = () => {
     const token = localStorage.getItem("token");
@@ -54,7 +80,11 @@ function App() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          if (err.code === "Ошибка: 401") {
+            console.log(err);
+            setLoggedIn(false);
+            localStorage.clear();
+          }
         });
     }
   };
@@ -65,13 +95,16 @@ function App() {
       .then(() => {
         handleLogin(password, email);
       })
-      .then((res) => {
-        if (res) {
-          navigate("/signin", { replace: true });
-        }
+      .then(() => {
+        setIsSuccess(true);
+        setIsSuccessMesage("Регистрация прошла успешно");
       })
       .catch((err) => {
-        console.log(err);
+        if (err === "Ошибка: 409") {
+          setIsErrorMessage("Попробуйте другой E-mail");
+        } else {
+          setIsErrorMessage("Произошла ошибка, попробуйте еще раз");
+        }
       });
   }
 
@@ -84,17 +117,28 @@ function App() {
           handleTokenCheck();
           setLoggedIn(true);
           navigate("/movies", { replace: true });
+          setIsSuccess(true);
         }
       })
       .catch((err) => {
-        console.log(err);
+        if (err === "Ошибка: 400") {
+          setIsErrorMessage("Неправильный логин или пароль");
+        } else {
+          setIsErrorMessage("Произошла ошибка, попробуйте еще раз");
+        }
       });
   }
   // выход из акаунта
   function signOut() {
-    localStorage.clear();
     navigate("/");
     setLoggedIn(false);
+    setCurrentUser({
+      email: "",
+      name: "",
+    });
+    setIsSaveMovies([]);
+    setToggleSaveMovies([]);
+    localStorage.clear();
   }
   // редактирование имени и емэйла
   function handleUpdateUser(data) {
@@ -102,56 +146,135 @@ function App() {
       .replaceUserData(data)
       .then((userData) => {
         setCurrentUser(userData);
+        setIsSuccessMesage("Данные изменены");
+        setTimeout(() => {
+          setIsSuccessMesage("");
+        }, 5000);
+        setIsSuccess(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        if (err === "Ошибка: 409") {
+          setIsErrorMessage("Попробуйте другой E-mail");
+        }
+        setIsErrorMessage("Произошла ошибка, попробуйте еще раз");
+      });
   }
-  // поиск фильмов
-  function handleSearchMovies(string) {
-    localStorage.setItem("SearchForm", JSON.stringify(string));
+  // Запрос к BeatFilm
+  async function serchOne() {
     setIsPreloader(true);
-    moviesApi
+    await moviesApi
       .getInitialMovies()
       .then((dataMovies) => {
-        localStorage.setItem("moviesFromMoviesApi", JSON.stringify(dataMovies));
+        localStorage.setItem("movies", JSON.stringify(dataMovies));
+        setIsMovies(dataMovies);
       })
-      .then(() => {
-        const searchFilms = JSON.parse(
-          localStorage.getItem("moviesFromMoviesApi")
-        );
-        const searchFilter = searchFilms.filter((movie) => {
-          return movie.nameRU.toLowerCase().includes(string);
-        });
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
         setIsPreloader(false);
-        localStorage.setItem("moviesSearchResult", JSON.stringify(searchFilter));
-        setIsMovies(searchFilter);
       });
+  }
+  // поиск фильмов
+  async function handleSearchMovies(string) {
+    if (
+      location.pathname === "/movies" &&
+      !JSON.parse(localStorage.getItem("movies"))
+    ) {
+      await serchOne();
+    }
+    localStorage.setItem("SearchForm", JSON.stringify(string.toLowerCase()));
+    const searchFilms = JSON.parse(localStorage.getItem("movies"));
+    const searchFilter = searchFilms.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(string.toLowerCase())
+    );
+    localStorage.setItem("moviesSearchResult", JSON.stringify(searchFilter));
+    setIsSearchMovies(searchFilter);
+  }
+
+  // поиск в сохраненых фильмах
+  function handleSearchSavedMovies(string) {
+    const searchFilterSaveMovies = isSaveMovies.filter((saveMovie) =>
+      saveMovie.nameRU.toLowerCase().includes(string.toLowerCase())
+    );
+    setIsSaveMovies(searchFilterSaveMovies);
+    localStorage.setItem(
+      "moviesSaveSearchResult",
+      JSON.stringify(searchFilterSaveMovies)
+    );
   }
 
   // сохранение фильма
   function moviesSave(film) {
-    mainApi.addMovie(film).then((res) => {
-      setIsSaveMovies((state) => [res, ...state]);
-    });
+    mainApi
+      .addMovie(film)
+      .then((res) => {
+        setIsSaveMovies((state) => [res, ...state]);
+      })
+      .catch((err) => console.log(err));
   }
 
   // удаление фильма
-  function deleteMovies(movie) {
-    console.log(movie);
-    mainApi.deleteMovie(movie._id).then((res) => {
-      const deletedMovieId = isSaveMovies.findIndex((i) => i._id === movie._id);
-      let newSaveMovies = [...isSaveMovies];
-      newSaveMovies.splice(deletedMovieId, 1);
-      setIsSaveMovies(newSaveMovies);
-    });
+  function deleteMovies(_id) {
+    mainApi
+      .deleteMovie(_id)
+      .then(() => {
+        const deletedMovieId = isSaveMovies.findIndex((i) => i._id === _id);
+        let newSaveMovies = [...isSaveMovies];
+        newSaveMovies.splice(deletedMovieId, 1);
+        setIsSaveMovies(newSaveMovies);
+      })
+      .catch((err) => console.log(err));
   }
 
-  function checkboxToggle(checkboxState) {
-    localStorage.setItem("checkboxState", checkboxState);
-    if (checkboxState) {
-      setIsShortsFilms(isMovies.filter((c) => c.duration < 40));
-    } else {
-      setIsShortsFilms(isMovies);
+  useEffect(() => {
+    if (checkbox && isSearchMovies) {
+      const shortMovies = isSearchMovies.filter(
+        (movie) => movie.duration <= 40
+      );
+      setToggleMovies(shortMovies);
     }
+    localStorage.setItem("checkboxState", JSON.stringify(checkbox));
+    setCheckbox(JSON.parse(localStorage.getItem("checkboxState")));
+  }, [checkbox, isSearchMovies, setToggleMovies]);
+
+  useEffect(() => {
+    if (checkboxSave && isSaveMovies) {
+      const shortSavedMovies = isSaveMovies.filter(
+        (movie) => movie.duration <= 40
+      );
+      setToggleSaveMovies(shortSavedMovies);
+    }
+    localStorage.setItem(
+      "checkboxStateSaveMovies",
+      JSON.stringify(checkboxSave)
+    );
+    setCheckboxSave(
+      JSON.parse(localStorage.getItem("checkboxStateSaveMovies"))
+    );
+  }, [checkboxSave, isSaveMovies, setToggleSaveMovies]);
+
+  useEffect(() => {
+    if (location.pathname === "/movies") {
+      setCheckbox(JSON.parse(localStorage.getItem("checkboxState")));
+    }
+  }, [checkbox, setCheckbox]);
+
+  useEffect(() => {
+    if (location.pathname === "/saved-movies") {
+      setCheckboxSave(
+        JSON.parse(localStorage.getItem("checkboxStateSaveMovies"))
+      );
+    }
+  }, [checkboxSave, setCheckboxSave]);
+
+  function handleChecboxChange() {
+    setCheckbox(!checkbox);
+  }
+
+  function handleChecboxSaveChange() {
+    setCheckboxSave(!checkboxSave);
   }
 
   return (
@@ -163,12 +286,15 @@ function App() {
           element={
             <ProtectedRouteElement
               element={Movies}
+              isMovies={checkbox ? toggleMovies : isSearchMovies}
+              checkbox={checkbox}
+              isSaveMovies={isSaveMovies}
               loggedIn={loggedIn}
-              isMovies={isMovies}
-              handleSearchMovies={handleSearchMovies}
               moviesSave={moviesSave}
+              deleteMovies={deleteMovies}
+              handleSearchMovies={handleSearchMovies}
               isPreloader={isPreloader}
-              checkboxToggle={checkboxToggle}
+              handleChecboxChange={handleChecboxChange}
             />
           }
         />
@@ -178,8 +304,11 @@ function App() {
             <ProtectedRouteElement
               element={SavedMovies}
               loggedIn={loggedIn}
-              isSaveMovies={isSaveMovies}
+              isSaveMovies={checkboxSave ? toggleSaveMovies : isSaveMovies}
               deleteMovies={deleteMovies}
+              handleSearchSavedMovies={handleSearchSavedMovies}
+              handleChecboxSaveChange={handleChecboxSaveChange}
+              checkboxSave={checkboxSave}
             />
           }
         />
@@ -188,16 +317,37 @@ function App() {
           element={
             <ProtectedRouteElement
               element={Profile}
+              isSuccess={isSuccess}
               signOut={signOut}
               loggedIn={loggedIn}
               handleUpdateUser={handleUpdateUser}
+              isSuccessMesage={isSuccessMesage}
+              isErrorMessage={isErrorMessage}
+              checkboxSave={checkboxSave}
             />
           }
         />
-        <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
+        <Route
+          path="/signin"
+          element={
+            <Login
+              handleLogin={handleLogin}
+              isSuccessMesage={isSuccessMesage}
+              isErrorMessage={isErrorMessage}
+              isSuccess={isSuccess}
+            />
+          }
+        />
         <Route
           path="/signup"
-          element={<Register handleRegistration={handleRegistration} />}
+          element={
+            <Register
+              handleRegistration={handleRegistration}
+              isSuccessMesage={isSuccessMesage}
+              isErrorMessage={isErrorMessage}
+              isSuccess={isSuccess}
+            />
+          }
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -1,11 +1,10 @@
 import logo from "../../images/logo.svg";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, isErrorMessage, isSuccessMesage, isSuccess }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
-  useFormAndValidation();
+    useFormAndValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -60,6 +59,11 @@ function Login({ handleLogin }) {
             <span className="login__input-error password-input-error">
               {errors.password}
             </span>
+            {isSuccess ? (
+              <span className="login__btn-error">{isSuccessMesage}</span>
+            ) : (
+              <span className="login__btn-error">{isErrorMessage}</span>
+            )}
             <button type="submit" className="login__btn-registration">
               Войти
             </button>

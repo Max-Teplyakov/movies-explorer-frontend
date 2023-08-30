@@ -1,62 +1,71 @@
 import { durationFormula } from "../../utils/utils";
 import { useLocation } from "react-router-dom";
-import { useContext } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useState, useEffect } from "react";
 
-function MoviesCard({ movieData, moviesSave, deleteMovies }) {
-  const { nameRU, duration, trailerLink, image } = movieData;
-  const currentUser = useContext(CurrentUserContext);
+function MoviesCard({ movieData, moviesSave, deleteMovies, isSaveMovies }) {
+  const { nameRU, duration, trailerLink, image, id, movieId } = movieData;
   const location = useLocation();
-  // const isLiked = movieData.likes.some((id) => id === currentUser._id);
-  // const cardLikeButtonClassName = `element__btn-like ${
-  //   isLiked && "element__btn-like_active"
-  // }`;
 
+  const [isLiked, setIsLiked] = useState(false);
 
-  // const isOwn = movieData.owner === currentUser._id;
-  // const cardDeleteButtonClassName = `element__btn-delete-card ${
-  //   isOwn && "element__btn-delete-card_visible"
-  // }`;
-
+  useEffect(() => {
+    if (location.pathname === "/movies") {
+      if (
+        isSaveMovies.find(
+          (item) => item.movieId === id || item.movieId === movieId
+        )
+      ) {
+        setIsLiked(true);
+      } else {
+        setIsLiked(false);
+      }
+    }
+  }, [isLiked, isSaveMovies]);
 
   const moviesLocation = `${
-    location.pathname === "/movies" ? `https://api.nomoreparties.co${image.url}` : image
+    location.pathname === "/movies"
+      ? `https://api.nomoreparties.co${image.url}`
+      : image
   }`;
+
+  const moviesLikeAcived = isLiked
+    ? "movie-card__like_active"
+    : "movie-card__like";
+
   const moviesLikeToggleClass = `${
-    location.pathname === "/movies" ? "movie-card__like" : "movie-card__delete"
+    location.pathname === "/movies" ? moviesLikeAcived : "movie-card__delete"
   }`;
-const moviesLikeToggle = location.pathname === "/movies" ? (handleMoviesSave) : (handleDeleteMovie);
+  const moviesLikeToggle =
+    location.pathname === "/movies" ? handleMoviesSave : handleDeleteMovie;
 
-function handleDeleteMovie() {
-  deleteMovies(movieData)
-}
-
-function handleMoviesSave() {
-  moviesSave(movieData, currentUser._id);
-}
-
+  function handleDeleteMovie() {
+    deleteMovies(movieData._id);
+  }
+  const savedMovie = isSaveMovies.find((i) => i.movieId === id);
+  function handleMoviesSave() {
+    if (savedMovie) {
+      deleteMovies(savedMovie._id);
+    } else {
+      moviesSave(movieData);
+    }
+  }
 
   return (
     <li className="movie-card">
       <div className="movie-card__block">
         <a className="movie-card__link-img" href={trailerLink} target="_blank">
-          <img
-            className="movie-card__img"
-            src={moviesLocation}
-            alt={nameRU}
-          />
+          <img className="movie-card__img" src={moviesLocation} alt={nameRU} />
         </a>
         <div className="movie-card__container">
           <div className="movie-card__conrainer-text">
             <h2 className="movie-card__text">{nameRU}</h2>
             <p className="movie-card__time">{durationFormula(duration)}</p>
           </div>
-          {location.pathname === "/movies" ? (<button
+          <button
             className={moviesLikeToggleClass}
             type="button"
             onClick={moviesLikeToggle}
-          ></button>) : ""}
-
+          ></button>
         </div>
       </div>
     </li>

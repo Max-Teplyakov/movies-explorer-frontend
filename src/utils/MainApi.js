@@ -20,20 +20,23 @@ export default class MainApi {
     }).then((res) => this._getResponseData(res));
   }
   //сохранить фильм
-  addMovie({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN,
-    id
-  }, userId) {
+  addMovie(
+    {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      thumbnail,
+      movieId,
+      nameRU,
+      nameEN,
+      id,
+    },
+    userId
+  ) {
     const jwt = localStorage.getItem("token");
     return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
