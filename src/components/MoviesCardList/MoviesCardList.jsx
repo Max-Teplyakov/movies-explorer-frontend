@@ -68,12 +68,12 @@ function MoviesCardList({ isMovies, deleteMovies, moviesSave, isSaveMovies }) {
             ))}
       </ul>
 
-      {isMovies && isMovies.length === 0 ? (
+      {isMovies.length === 0 ? (
         <p className="movies-card-list__subtitle">Ничего не найденно</p>
       ) : (
         <></>
       )}
-      {isMovies && isMovies.length > 11 ? (
+      {isMovies.length > 11 ? (
         <button type="button" className="button-next" onClick={handleClick}>
           Ещё
         </button>
