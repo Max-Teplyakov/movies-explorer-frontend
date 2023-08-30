@@ -29,8 +29,6 @@ export default class MainApi {
       description,
       image,
       trailerLink,
-      thumbnail,
-      movieId,
       nameRU,
       nameEN,
       id,
@@ -95,13 +93,6 @@ export default class MainApi {
       }),
     }).then((res) => this._getResponseData(res));
   }
-
-  // changeLikeCardStatus(_id, isLiked) {
-  //   if (isLiked) {
-  //     return this.deleteLikeCard(_id);
-  //   }
-  //   return this.likeCard(_id);
-  // }
 }
 
 export const mainApi = new MainApi({

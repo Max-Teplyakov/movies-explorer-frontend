@@ -1,6 +1,6 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 function SearchForm({ handleSearchMovies, handleChecboxChange, checkbox }) {
