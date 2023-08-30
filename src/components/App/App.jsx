@@ -41,7 +41,6 @@ function App() {
 
   useEffect(() => {
     handleTokenCheck();
-    console.log(loggedIn);
     if (loggedIn) {
       mainApi
         .getSavedMovies()
@@ -98,6 +97,9 @@ function App() {
       .then(() => {
         setIsSuccess(true);
         setIsSuccessMesage("Регистрация прошла успешно");
+        setTimeout(() => {
+          setIsSuccessMesage("");
+        }, 5000);
       })
       .catch((err) => {
         if (err === "Ошибка: 409") {
@@ -139,6 +141,7 @@ function App() {
     setIsSaveMovies([]);
     setToggleSaveMovies([]);
     localStorage.clear();
+    localStorage.removeItem("movies");
   }
   // редактирование имени и емэйла
   function handleUpdateUser(data) {
@@ -160,14 +163,26 @@ function App() {
         setIsErrorMessage("Произошла ошибка, попробуйте еще раз");
       });
   }
+  function serchQuery(string) {
+    localStorage.setItem("SearchForm", JSON.stringify(string.toLowerCase()));
+    const searchFilms = JSON.parse(localStorage.getItem("movies"));
+    const searchFilter = searchFilms.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(string.toLowerCase())
+    );
+    localStorage.setItem("moviesSearchResult", JSON.stringify(searchFilter));
+    setIsSearchMovies(searchFilter);
+  }
   // Запрос к BeatFilm
-  async function serchOne() {
+  function serchOne(string) {
     setIsPreloader(true);
-    await moviesApi
+    moviesApi
       .getInitialMovies()
       .then((dataMovies) => {
         localStorage.setItem("movies", JSON.stringify(dataMovies));
         setIsMovies(dataMovies);
+      })
+      .then(() => {
+        serchQuery(string);
       })
       .catch((err) => {
         console.error(err);
@@ -177,20 +192,15 @@ function App() {
       });
   }
   // поиск фильмов
-  async function handleSearchMovies(string) {
+  function handleSearchMovies(string) {
     if (
       location.pathname === "/movies" &&
       !JSON.parse(localStorage.getItem("movies"))
     ) {
-      await serchOne();
+      serchOne(string);
+    } else {
+      serchQuery(string);
     }
-    localStorage.setItem("SearchForm", JSON.stringify(string.toLowerCase()));
-    const searchFilms = JSON.parse(localStorage.getItem("movies"));
-    const searchFilter = searchFilms.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(string.toLowerCase())
-    );
-    localStorage.setItem("moviesSearchResult", JSON.stringify(searchFilter));
-    setIsSearchMovies(searchFilter);
   }
 
   // поиск в сохраненых фильмах
