@@ -13,6 +13,7 @@ function Movies({
   handleSearchMovies,
   isPreloader,
   checkbox,
+  btnAddMovie,
 }) {
   return (
     <>
@@ -31,6 +32,7 @@ function Movies({
             isSaveMovies={isSaveMovies}
             moviesSave={moviesSave}
             deleteMovies={deleteMovies}
+            btnAddMovie={btnAddMovie}
           />
         )}
       </main>

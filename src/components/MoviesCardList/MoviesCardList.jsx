@@ -1,5 +1,6 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 const LG_ROW_CARD_COUNT = 4;
@@ -10,12 +11,20 @@ const LG_INITIAL_CARD_COUNT = 16;
 const MD_INITIAL_CARD_COUNT = 8;
 const SM_INITIAL_CARD_COUNT = 5;
 
-function MoviesCardList({ isMovies, deleteMovies, moviesSave, isSaveMovies }) {
+function MoviesCardList({
+  isMovies,
+  deleteMovies,
+  moviesSave,
+  isSaveMovies,
+  btnAddMovie,
+}) {
+  const location = useLocation();
+
   useEffect(() => {
     setVisibleCardCount(initialCardCount);
   }, [isMovies]);
 
-  const isDesktop = useMediaQuery("(min-width: 1280px)");
+  const isDesktop = useMediaQuery("(min-width: 1260px)");
   const isTablet = useMediaQuery("(min-width: 768px)");
 
   const cardColumnCount = isDesktop
@@ -73,7 +82,10 @@ function MoviesCardList({ isMovies, deleteMovies, moviesSave, isSaveMovies }) {
       ) : (
         <></>
       )}
-      {isMovies && isMovies.length > 11 ? (
+      {location.pathname === "/movies" &&
+      isMovies &&
+      isMovies.length > 11 &&
+      isMovies.length > roundedVisibleCardCount ? (
         <button type="button" className="button-next" onClick={handleClick}>
           Ещё
         </button>

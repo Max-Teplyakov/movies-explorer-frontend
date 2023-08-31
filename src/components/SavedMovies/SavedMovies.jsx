@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
 function SavedMovies({
+  isMovies,
   isSaveMovies,
   handleChecboxSaveChange,
   handleSearchSavedMovies,
@@ -21,7 +22,7 @@ function SavedMovies({
         />
         <MoviesCardList
           deleteMovies={deleteMovies}
-          isMovies={isSaveMovies}
+          isMovies={isMovies}
           isSaveMovies={isSaveMovies}
         />
       </main>

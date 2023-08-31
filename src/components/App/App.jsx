@@ -23,6 +23,7 @@ function App() {
   const [isSearchMovies, setIsSearchMovies] = useState(
     JSON.parse(localStorage.getItem("moviesSearchResult"))
   );
+  const [isSearchSaveMovies, setIsSearchSaveMovies] = useState([]);
   const [isSaveMovies, setIsSaveMovies] = useState([]);
   const [isPreloader, setIsPreloader] = useState(false);
   const [isErrorMessage, setIsErrorMessage] = useState("");
@@ -35,10 +36,10 @@ function App() {
   );
   const [toggleMovies, setToggleMovies] = useState([]);
   const [toggleSaveMovies, setToggleSaveMovies] = useState([]);
+  const [stateMovie, setStateMovie] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-
   useEffect(() => {
     handleTokenCheck();
     if (loggedIn) {
@@ -70,6 +71,10 @@ function App() {
       setCheckbox(JSON.parse(localStorage.getItem("checkboxState")));
     }
   }, [checkbox, setCheckbox]);
+
+  useEffect(() => {
+    setIsSearchSaveMovies(JSON.parse(localStorage.getItem("moviesSaved")));
+  }, [isSaveMovies]);
 
   useEffect(() => {
     if (location.pathname === "/saved-movies") {
@@ -222,14 +227,11 @@ function App() {
 
   // поиск в сохраненых фильмах
   function handleSearchSavedMovies(string) {
+    setStateMovie(true);
     const searchFilterSaveMovies = isSaveMovies.filter((saveMovie) =>
       saveMovie.nameRU.toLowerCase().includes(string.toLowerCase())
     );
-    setIsSaveMovies(searchFilterSaveMovies);
-    localStorage.setItem(
-      "moviesSaveSearchResult",
-      JSON.stringify(searchFilterSaveMovies)
-    );
+    setIsSearchSaveMovies(searchFilterSaveMovies);
   }
 
   // сохранение фильма
@@ -268,6 +270,7 @@ function App() {
 
   useEffect(() => {
     if (checkboxSave && isSaveMovies) {
+      console.log(isSaveMovies);
       const shortSavedMovies = isSaveMovies.filter(
         (movie) => movie.duration <= 40
       );
@@ -280,6 +283,7 @@ function App() {
     setCheckboxSave(
       JSON.parse(localStorage.getItem("checkboxStateSaveMovies"))
     );
+    console.log(toggleSaveMovies);
   }, [checkboxSave, isSaveMovies, setToggleSaveMovies]);
 
   function handleChecboxChange() {
@@ -317,7 +321,14 @@ function App() {
             <ProtectedRouteElement
               element={SavedMovies}
               loggedIn={loggedIn}
-              isSaveMovies={checkboxSave ? toggleSaveMovies : isSaveMovies}
+              isSaveMovies={isSaveMovies}
+              isMovies={
+                checkboxSave
+                  ? toggleSaveMovies
+                  : stateMovie
+                  ? isSearchSaveMovies
+                  : isSaveMovies
+              }
               deleteMovies={deleteMovies}
               handleSearchSavedMovies={handleSearchSavedMovies}
               handleChecboxSaveChange={handleChecboxSaveChange}

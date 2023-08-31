@@ -4,8 +4,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 function SearchForm({ handleSearchMovies, handleChecboxChange, checkbox }) {
-  const { values, handleChange, errors, isValid, setValues } =
-    useFormAndValidation();
+  const { values, handleChange, isValid, setValues } = useFormAndValidation();
   const location = useLocation();
 
   const handleSubmit = (e) => {
