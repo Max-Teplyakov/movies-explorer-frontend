@@ -1,10 +1,20 @@
 import logo from "../../images/logo.svg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 function Login({ handleLogin, isErrorMessage, isSuccessMesage, isSuccess }) {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
+
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (!values.email || !values.password) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [values.email, values.password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +33,7 @@ function Login({ handleLogin, isErrorMessage, isSuccessMesage, isSuccess }) {
             <img src={logo} alt="логотип Сайта" className="login__logo" />
           </Link>
           <h1 className="login__title">Рады видеть!</h1>
-          <form className="login__form" onSubmit={handleSubmit}>
+          <form className="login__form" onSubmit={handleSubmit} noValidate>
             <label className="login__label" htmlFor="login-email-input">
               E-mail
               <input
@@ -66,10 +76,8 @@ function Login({ handleLogin, isErrorMessage, isSuccessMesage, isSuccess }) {
             )}
             <button
               type="submit"
-              className={`login__btn-registration ${
-                isValid ? "" : "login__btn-registration_inactive"
-              }`}
-              disabled={!isValid}
+              className="login__btn-registration"
+              disabled={!isValid || disabled}
             >
               Войти
             </button>

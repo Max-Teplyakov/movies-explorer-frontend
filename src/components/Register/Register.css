@@ -83,7 +83,7 @@
   opacity: 0.8;
 }
 
-.register__btn-registration_inactive {
+.register__btn-registration:disabled {
   background: #f8f8f8;
   color: #c2c2c2;
   pointer-events: none;

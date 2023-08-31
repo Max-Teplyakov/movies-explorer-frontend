@@ -113,7 +113,7 @@ function App() {
         setIsSuccessMesage("Регистрация прошла успешно");
         setTimeout(() => {
           setIsSuccessMesage("");
-        }, 5000);
+        }, 2000);
       })
       .catch((err) => {
         if (err === "Ошибка: 409") {
@@ -142,6 +142,9 @@ function App() {
         } else {
           setIsErrorMessage("Произошла ошибка, попробуйте еще раз");
         }
+        setTimeout(() => {
+          setIsErrorMessage("");
+        }, 2000);
       });
   }
   // выход из акаунта

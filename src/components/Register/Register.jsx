@@ -1,5 +1,6 @@
 import logo from "../../images/logo.svg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 function Register({
@@ -9,6 +10,15 @@ function Register({
   isSuccess,
 }) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (!values.name || !values.email || !values.password) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [values.name, values.email, values.password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +33,7 @@ function Register({
             <img src={logo} alt="логотип Сайта" className="register__logo" />
           </Link>
           <h1 className="register__title">Добро пожаловать!</h1>
-          <form className="register__form" onSubmit={handleSubmit}>
+          <form className="register__form" onSubmit={handleSubmit} noValidate>
             <label className="register__label" htmlFor="register-name-input">
               Имя
               <input
@@ -52,6 +62,8 @@ function Register({
                 className="register__input"
                 id="register-email-input"
                 placeholder="E-mail"
+                pattern="^[\w]+@[a-zA-Z]+\.[a-zA-Z]{1,3}$"
+                autoComplete="off"
                 onChange={handleChange}
                 required
               />
@@ -87,10 +99,8 @@ function Register({
             )}
             <button
               type="submit"
-              className={`register__btn-registration ${
-                isValid ? "" : "register__btn-registration_inactive"
-              }`}
-              disabled={!isValid}
+              className={`register__btn-registration`}
+              disabled={!isValid || disabled}
             >
               Зарегистрироваться
             </button>

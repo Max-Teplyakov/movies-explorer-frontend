@@ -31,19 +31,6 @@
   border-bottom: 1px solid #8b8b8b;
 }
 
-.search-form__input-error {
-  display: none;
-  color: #ee3465;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.search-form__input-error_active {
-  display: block;
-}
-
 .search-form__btn {
   margin-left: 6px;
   width: 34px;

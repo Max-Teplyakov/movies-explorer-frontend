@@ -7,7 +7,7 @@ const MD_ROW_CARD_COUNT = 2;
 const SM_ROW_CARD_COUNT = 2;
 
 const LG_INITIAL_CARD_COUNT = 16;
-const MD_INITIAL_CARD_COUNT = 9;
+const MD_INITIAL_CARD_COUNT = 8;
 const SM_INITIAL_CARD_COUNT = 5;
 
 function MoviesCardList({ isMovies, deleteMovies, moviesSave, isSaveMovies }) {
@@ -68,12 +68,12 @@ function MoviesCardList({ isMovies, deleteMovies, moviesSave, isSaveMovies }) {
             ))}
       </ul>
 
-      {isMovies.length === 0 ? (
+      {isMovies && isMovies.length === 0 ? (
         <p className="movies-card-list__subtitle">Ничего не найденно</p>
       ) : (
         <></>
       )}
-      {isMovies.length > 11 ? (
+      {isMovies && isMovies.length > 11 ? (
         <button type="button" className="button-next" onClick={handleClick}>
           Ещё
         </button>

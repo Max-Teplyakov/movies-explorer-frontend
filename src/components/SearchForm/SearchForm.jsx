@@ -11,7 +11,6 @@ function SearchForm({ handleSearchMovies, handleChecboxChange, checkbox }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { searchfilm } = values;
-
     handleSearchMovies(searchfilm);
   };
 
@@ -23,16 +22,14 @@ function SearchForm({ handleSearchMovies, handleChecboxChange, checkbox }) {
     }
   }, [setValues]);
 
-  const inputError = errors.searchfilm ? "search-form__input-error_active" : "";
   return (
     <section className="search">
-      <form className="search-form" onSubmit={handleSubmit}>
+      <form className="search-form" onSubmit={handleSubmit} noValidate>
         <div className="search-form__container">
           <input
             type="text"
             name="searchfilm"
             id="search-film"
-            minLength={2}
             placeholder="Фильм"
             className="search-form__input"
             value={values.searchfilm || ""}
@@ -45,9 +42,6 @@ function SearchForm({ handleSearchMovies, handleChecboxChange, checkbox }) {
             disabled={!isValid}
           ></button>
         </div>
-        <span className={`search-form__input-error ${inputError}`}>
-          Нужно ввести ключевое слово
-        </span>
       </form>
       <FilterCheckbox
         checkbox={checkbox}
