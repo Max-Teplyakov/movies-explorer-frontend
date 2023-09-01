@@ -1,16 +1,20 @@
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 function SearchForm({ handleSearchMovies, handleChecboxChange, checkbox }) {
   const { values, handleChange, isValid, setValues } = useFormAndValidation();
   const location = useLocation();
+  const [isValidSearch, setIsValidSearch] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { searchfilm } = values;
     handleSearchMovies(searchfilm);
+    if (!searchfilm) {
+      setIsValidSearch(true);
+    } else setIsValidSearch(false);
   };
 
   useEffect(() => {
@@ -35,13 +39,14 @@ function SearchForm({ handleSearchMovies, handleChecboxChange, checkbox }) {
             required
             onChange={handleChange}
           ></input>
-          <button
-            type="submit"
-            className="search-form__btn"
-            disabled={!isValid}
-          ></button>
+          <button type="submit" className="search-form__btn"></button>
         </div>
       </form>
+      {isValidSearch ? (
+        <span className="search-form__error">Нужно ввести ключевое слово!</span>
+      ) : (
+        ""
+      )}
       <FilterCheckbox
         checkbox={checkbox}
         handleChecboxChange={handleChecboxChange}

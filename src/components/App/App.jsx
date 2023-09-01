@@ -216,6 +216,9 @@ function App() {
   }
   // поиск фильмов
   function handleSearchMovies(string) {
+    if (!string) {
+      return;
+    }
     if (
       location.pathname === "/movies" &&
       !JSON.parse(localStorage.getItem("movies"))
@@ -228,6 +231,9 @@ function App() {
 
   // поиск в сохраненых фильмах
   function handleSearchSavedMovies(string) {
+    if (!string) {
+      return;
+    }
     setStateMovie(true);
     const searchFilterSaveMovies = isSaveMovies.filter((saveMovie) =>
       saveMovie.nameRU.toLowerCase().includes(string.toLowerCase())
