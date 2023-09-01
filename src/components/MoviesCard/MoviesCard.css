@@ -92,7 +92,7 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .movie-card {
     width: 339px;
     height: 257px;

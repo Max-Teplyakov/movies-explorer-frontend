@@ -11,20 +11,14 @@ const LG_INITIAL_CARD_COUNT = 16;
 const MD_INITIAL_CARD_COUNT = 8;
 const SM_INITIAL_CARD_COUNT = 5;
 
-function MoviesCardList({
-  isMovies,
-  deleteMovies,
-  moviesSave,
-  isSaveMovies,
-  btnAddMovie,
-}) {
+function MoviesCardList({ isMovies, deleteMovies, moviesSave, isSaveMovies }) {
   const location = useLocation();
 
   useEffect(() => {
-    setVisibleCardCount(initialCardCount);
-  }, [isMovies]);
+    return setVisibleCardCount(initialCardCount);
+  }, [isSaveMovies]);
 
-  const isDesktop = useMediaQuery("(min-width: 1260px)");
+  const isDesktop = useMediaQuery("(min-width: 1280px)");
   const isTablet = useMediaQuery("(min-width: 768px)");
 
   const cardColumnCount = isDesktop
@@ -45,7 +39,7 @@ function MoviesCardList({
     ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount
     : isTablet
     ? Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount
-    : Math.floor(visibleCardCount / cardColumnCount) * cardColumnCount;
+    : Math.floor((visibleCardCount / cardColumnCount) * cardColumnCount);
 
   const handleClick = () => {
     calculateCardCount();
@@ -63,7 +57,9 @@ function MoviesCardList({
   return (
     <section className="movies-cards">
       <ul className={"movies-card-list"}>
-        {isMovies &&
+        {/* {location.pathname === "/mvoies"} */}
+        {location.pathname === "/movies" &&
+          isMovies &&
           isMovies
             .slice(0, roundedVisibleCardCount)
             .map((movieItem) => (
@@ -75,6 +71,17 @@ function MoviesCardList({
                 isSaveMovies={isSaveMovies}
               />
             ))}
+        {location.pathname === "/saved-movies" &&
+          isMovies &&
+          isMovies.map((movieItem) => (
+            <MoviesCard
+              key={movieItem.id || movieItem._id}
+              movieData={movieItem}
+              deleteMovies={deleteMovies}
+              moviesSave={moviesSave}
+              isSaveMovies={isSaveMovies}
+            />
+          ))}
       </ul>
 
       {isMovies && isMovies.length === 0 ? (
