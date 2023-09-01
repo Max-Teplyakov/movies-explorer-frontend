@@ -39,7 +39,6 @@ function MoviesCard({ movieData, moviesSave, deleteMovies, isSaveMovies }) {
     location.pathname === "/movies" ? handleMoviesSave : handleDeleteMovie;
 
   function handleDeleteMovie() {
-    console.log(movieData);
     deleteMovies(movieData._id);
   }
   const savedMovie = isSaveMovies && isSaveMovies.find((i) => i.movieId === id);

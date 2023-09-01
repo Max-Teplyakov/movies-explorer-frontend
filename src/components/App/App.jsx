@@ -162,6 +162,7 @@ function App() {
     });
     setIsSaveMovies([]);
     setToggleSaveMovies([]);
+    setIsSearchMovies([]);
     localStorage.clear();
     localStorage.removeItem("movies");
   }
@@ -283,7 +284,6 @@ function App() {
     setCheckboxSave(
       JSON.parse(localStorage.getItem("checkboxStateSaveMovies"))
     );
-    console.log(toggleSaveMovies);
   }, [checkboxSave, isSaveMovies, setToggleSaveMovies]);
 
   function handleChecboxChange() {
