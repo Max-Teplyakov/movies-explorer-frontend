@@ -10,6 +10,9 @@
   background-color: #202020;
 }
 
+.header_color_blue {
+  background-color: #073042;
+}
 .header__auth {
   display: flex;
   justify-content: space-between;

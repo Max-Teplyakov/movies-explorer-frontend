@@ -1,4 +1,4 @@
-.search-form {
+.search {
   padding: 0 66px;
 }
 
@@ -18,6 +18,7 @@
   height: 50px;
   border-radius: 8px;
   background: #212121;
+  color: #fff;
   border: none;
   font-size: 28px;
   font-style: normal;
@@ -45,6 +46,15 @@
 
 .search-form__btn:hover {
   opacity: 0.8;
+}
+
+.search-form__error {
+  min-height: 16px;
+  color: #ee3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 @media screen and (max-width: 768px) {
@@ -81,6 +91,9 @@
 }
 
 @media screen and (max-width: 380px) {
+  .search {
+    padding: 0 15px;
+  }
   .search-form {
     padding: 0;
   }

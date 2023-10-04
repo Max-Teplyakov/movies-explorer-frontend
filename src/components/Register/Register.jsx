@@ -1,11 +1,30 @@
 import logo from "../../images/logo.svg";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function Register() {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
+function Register({
+  handleRegistration,
+  isErrorMessage,
+  isSuccessMesage,
+  isSuccess,
+}) {
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
+  const [disabled, setDisabled] = useState(false);
 
+  useEffect(() => {
+    if (!values.name || !values.email || !values.password) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [values.name, values.email, values.password]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { password, email, name } = values;
+    handleRegistration(password, email, name);
+  };
   return (
     <>
       <main className="register">
@@ -14,7 +33,7 @@ function Register() {
             <img src={logo} alt="логотип Сайта" className="register__logo" />
           </Link>
           <h1 className="register__title">Добро пожаловать!</h1>
-          <form className="register__form">
+          <form className="register__form" onSubmit={handleSubmit} noValidate>
             <label className="register__label" htmlFor="register-name-input">
               Имя
               <input
@@ -43,6 +62,8 @@ function Register() {
                 className="register__input"
                 id="register-email-input"
                 placeholder="E-mail"
+                pattern="^[\w]+@[a-zA-Z]+\.[a-zA-Z]{1,3}$"
+                autoComplete="off"
                 onChange={handleChange}
                 required
               />
@@ -69,9 +90,18 @@ function Register() {
               />
             </label>
             <span className="register__input-error password-input-error">
-              Что то пошло не так
+              {errors.password}
             </span>
-            <button type="submit" className="register__btn-registration">
+            {isSuccess ? (
+              <span className="register__btn-error">{isSuccessMesage}</span>
+            ) : (
+              <span className="register__btn-error">{isErrorMessage}</span>
+            )}
+            <button
+              type="submit"
+              className={`register__btn-registration`}
+              disabled={!isValid || disabled}
+            >
               Зарегистрироваться
             </button>
             <div className="register__text">

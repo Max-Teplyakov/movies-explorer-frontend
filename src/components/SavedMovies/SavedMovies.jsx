@@ -1,16 +1,30 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
-import { dataSaveMovies } from "../../utils/data.js";
 import Footer from "../Footer/Footer";
 
-function SavedMovies() {
+function SavedMovies({
+  isMovies,
+  isSaveMovies,
+  handleChecboxSaveChange,
+  handleSearchSavedMovies,
+  deleteMovies,
+  checkboxSave,
+}) {
   return (
     <>
       <Header />
       <main className="saved-movies">
-        <SearchForm />
-        <MoviesCardList dataMovies={dataSaveMovies} />
+        <SearchForm
+          handleChecboxChange={handleChecboxSaveChange}
+          handleSearchMovies={handleSearchSavedMovies}
+          checkbox={checkboxSave}
+        />
+        <MoviesCardList
+          deleteMovies={deleteMovies}
+          isMovies={isMovies}
+          isSaveMovies={isSaveMovies}
+        />
       </main>
       <Footer />
     </>
