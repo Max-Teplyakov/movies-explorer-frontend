@@ -1,0 +1,124 @@
+.techs {
+  padding: 0 70px;
+  background-color: #272727;
+}
+
+.techs__title {
+  padding-top: 100px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 23px;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.88px;
+  border-bottom: 1px solid #dadada;
+}
+
+.techs__title-skill {
+  margin: 90px 0 26px;
+  text-align: center;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 58px; /* 116% */
+  letter-spacing: -2px;
+}
+
+.techs__subtitle {
+  margin: 0 auto 100px;
+  text-align: center;
+  max-width: 460px;
+  min-height: 40px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.56px;
+}
+
+.techs__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 60px;
+  border-radius: 10px;
+  background: #303030;
+}
+
+.techs__block {
+  padding: 0;
+  padding-bottom: 100px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.56px;
+}
+
+@media screen and (max-width: 768px) {
+  .techs {
+    padding: 0 50px;
+  }
+  .techs__title {
+    padding-top: 93px;
+  }
+  .techs__title-skill {
+    margin: 80px 0 22px;
+  }
+  .techs__subtitle {
+    margin-bottom: 78px;
+    font-size: 12px;
+    line-height: 18px; /* 150% */
+    letter-spacing: -0.48px;
+  }
+  .techs__block {
+    padding-bottom: 90px;
+    font-size: 12px;
+    letter-spacing: -0.48px;
+  }
+  .techs__icon {
+    width: 84px;
+    height: 57px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .techs {
+    padding: 0 18px;
+  }
+
+  .techs__title {
+    padding-top: 48px;
+    padding-bottom: 27px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
+  .techs__title-skill {
+    margin-top: 49px;
+    margin-bottom: 12px;
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+
+  .techs__subtitle {
+    margin-bottom: 42px;
+    font-size: 11px;
+    line-height: 16px; /* 145.455% */
+    letter-spacing: -0.44px;
+  }
+
+  .techs__block {
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: start;
+    width: 178px;
+  }
+}

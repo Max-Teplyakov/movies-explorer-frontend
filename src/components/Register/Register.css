@@ -1,0 +1,156 @@
+.register {
+  margin: 0 auto;
+  width: 396px;
+}
+
+.register__logo {
+  padding-top: 70px;
+  padding-bottom: 38px;
+  transition: opacity 0.5s;
+}
+
+.register__logo:hover {
+  opacity: 0.7;
+}
+
+.register__title {
+  margin: 0;
+  padding-bottom: 40px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+
+
+.register__label {
+  display: block;
+  color: #8b8b8b;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__input {
+  margin-top: 7px;
+  padding: 15px;
+  width: 368px;
+  height: 18px;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 8px;
+  background: #2f2f2f;
+  border: none;
+  color: #fff;
+}
+
+.register__input:focus {
+  outline: none;
+  border-bottom: 1px solid #8b8b8b;
+}
+
+.register__input-error {
+  margin-top: 9px;
+  min-height: 11px;
+  display: block;
+  color: #ee3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__btn-registration {
+  margin-top: 69px;
+  margin-bottom: 17px;
+  width: 396px;
+  height: 45px;
+  border-radius: 3px;
+  background: #4285f4;
+  font-size: 14px;
+  border: none;
+  color: #fff;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.register__btn-registration:hover {
+  opacity: 0.8;
+}
+
+.register__text {
+  margin-bottom: 70px;
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.register__btn-register {
+  margin-left: 6px;
+
+  color: #4285f4;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  transition: opacity 0.5s;
+}
+
+.register__btn-register:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+  .register__logo {
+    padding-top: 230px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .register {
+    width: 260px;
+  }
+
+  .register__logo {
+    padding-top: 56px;
+    padding-bottom: 50px;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  .register__title {
+    padding-bottom: 80px;
+    text-align: center;
+  }
+
+  .register__input {
+    width: 230px;
+  }
+
+  .register__btn-registration {
+    width: 260px;
+    margin-top: 158px;
+    margin-bottom: 14px;
+    font-size: 12px;
+  }
+
+  .register__text {
+    font-size: 12px;
+  }
+
+  .register__btn-register {
+    font-size: 12px;
+  }
+}
